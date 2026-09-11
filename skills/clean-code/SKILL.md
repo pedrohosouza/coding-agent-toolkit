@@ -15,95 +15,95 @@ por padrão; ao se desviar, deixe explícito o motivo.
 
 ## Regras gerais
 
-1. Siga as convenções padrão.
-2. **Escreva todo o código em inglês.** Nomes de variáveis, funções, classes,
+- Siga as convenções padrão.
+- **Escreva todo o código em inglês.** Nomes de variáveis, funções, classes,
    tipos, arquivos, comentários e mensagens de commit são sempre em inglês.
-3. Mantenha simples (KISS — Keep It Simple, Stupid). Mais simples é sempre
+- Mantenha simples (KISS — Keep It Simple, Stupid). Mais simples é sempre
    melhor. Reduza a complexidade ao máximo.
-4. Regra do escoteiro. Deixe o acampamento mais limpo do que você o encontrou.
-5. Sempre encontre a causa raiz. Sempre busque a causa raiz de um problema.
+- Regra do escoteiro. Deixe o acampamento mais limpo do que você o encontrou.
+- Sempre encontre a causa raiz. Sempre busque a causa raiz de um problema.
 
 ## Regras de design
 
-1. Mantenha dados configuráveis em níveis altos.
-2. Prefira polimorfismo a longas cadeias condicionais.
-3. **Nunca use `else`.** `if` e `switch/case` são permitidos, mas `else` (e
+- Mantenha dados configuráveis em níveis altos.
+- Prefira polimorfismo a longas cadeias condicionais.
+- **Nunca use `else`.** `if` e `switch/case` são permitidos, mas `else` (e
    `else if`) é proibido. Use *early return* / *guard clauses* para sair cedo e
    manter o fluxo linear.
-4. Separe o código de multithreading.
-5. Evite excesso de configurabilidade.
-6. Use injeção de dependência.
-7. Siga a Lei de Deméter. Uma classe deve conhecer apenas suas dependências
+- Separe o código de multithreading.
+- Evite excesso de configurabilidade.
+- Use injeção de dependência.
+- Siga a Lei de Deméter. Uma classe deve conhecer apenas suas dependências
    diretas.
 
 ## Dicas de compreensibilidade
 
-1. Seja consistente. Se você faz algo de uma determinada forma, faça todas as
+- Seja consistente. Se você faz algo de uma determinada forma, faça todas as
    coisas semelhantes da mesma forma.
-2. Use variáveis explicativas.
-3. Encapsule condições de contorno. Condições de contorno são difíceis de
+- Use variáveis explicativas.
+- Encapsule condições de contorno. Condições de contorno são difíceis de
    acompanhar; coloque o tratamento delas em um único lugar.
-4. Prefira objetos de valor dedicados a tipos primitivos.
-5. Evite dependência lógica. Não escreva métodos que funcionem corretamente
+- Prefira objetos de valor dedicados a tipos primitivos.
+- Evite dependência lógica. Não escreva métodos que funcionem corretamente
    dependendo de outra coisa na mesma classe.
-6. Evite condicionais negativas.
+- Evite condicionais negativas.
 
 ## Regras de funções
 
-1. Pequenas.
-2. Façam uma única coisa.
-3. Usem nomes descritivos.
-4. Prefira menos argumentos.
-5. Não tenham efeitos colaterais.
-6. Não use argumentos de flag. Divida o método em vários métodos independentes
+- Pequenas.
+- Façam uma única coisa.
+- Usem nomes descritivos.
+- Prefira menos argumentos.
+- Não tenham efeitos colaterais.
+- Não use argumentos de flag. Divida o método em vários métodos independentes
    que possam ser chamados pelo cliente sem a flag.
 
 ## Regras de comentários
 
-1. Sempre tente se explicar no código.
-2. Não seja redundante.
-3. Não adicione ruído óbvio.
-4. Não use comentários em chaves de fechamento.
-5. Não deixe código comentado. Apenas remova.
-6. Use como explicação de intenção.
-7. Use como esclarecimento do código.
-8. Use como aviso de consequências.
+- Sempre tente se explicar no código.
+- Não seja redundante.
+- Não adicione ruído óbvio.
+- Não use comentários em chaves de fechamento.
+- Não deixe código comentado. Apenas remova.
+- Use como explicação de intenção.
+- Use como esclarecimento do código.
+- Use como aviso de consequências.
 
 ## Estrutura do código-fonte
 
-1. Separe conceitos verticalmente.
-2. Código relacionado deve aparecer verticalmente denso.
-3. Declare variáveis próximas ao seu uso.
-4. Funções dependentes devem ficar próximas.
-5. Funções semelhantes devem ficar próximas.
-6. Coloque as funções no sentido descendente.
-7. Mantenha as linhas curtas.
-8. Não use alinhamento horizontal.
-9. Use espaços em branco para associar coisas relacionadas e desassociar as
+- Separe conceitos verticalmente.
+- Código relacionado deve aparecer verticalmente denso.
+- Declare variáveis próximas ao seu uso.
+- Funções dependentes devem ficar próximas.
+- Funções semelhantes devem ficar próximas.
+- Coloque as funções no sentido descendente.
+- Mantenha as linhas curtas.
+- Não use alinhamento horizontal.
+- Use espaços em branco para associar coisas relacionadas e desassociar as
    fracamente relacionadas.
-10. Não quebre a indentação.
+- Não quebre a indentação.
 
 ## Objetos e estruturas de dados
 
-1. Oculte a estrutura interna.
-2. Prefira estruturas de dados.
-3. Evite estruturas híbridas (metade objeto, metade dado).
-4. Devem ser pequenos.
-5. Devem fazer uma única coisa.
-6. Pequeno número de variáveis de instância.
-7. A classe base não deve saber nada sobre suas derivadas.
-8. É melhor ter muitas funções do que passar algum código para uma função
+- Oculte a estrutura interna.
+- Prefira estruturas de dados.
+- Evite estruturas híbridas (metade objeto, metade dado).
+- Devem ser pequenos.
+- Devem fazer uma única coisa.
+- Pequeno número de variáveis de instância.
+- A classe base não deve saber nada sobre suas derivadas.
+- É melhor ter muitas funções do que passar algum código para uma função
    selecionar um comportamento.
-9. Prefira métodos não estáticos a métodos estáticos.
+- Prefira métodos não estáticos a métodos estáticos.
 
 ## Code Smells
 
-1. **Rigidez.** O software é difícil de mudar. Uma pequena alteração causa uma
+- **Rigidez.** O software é difícil de mudar. Uma pequena alteração causa uma
    cascata de alterações subsequentes.
-2. **Fragilidade.** O software quebra em vários lugares devido a uma única
+- **Fragilidade.** O software quebra em vários lugares devido a uma única
    alteração.
-3. **Imobilidade.** Você não consegue reutilizar partes do código em outros
+- **Imobilidade.** Você não consegue reutilizar partes do código em outros
    projetos por causa dos riscos envolvidos e do alto esforço.
-4. **Complexidade desnecessária.**
-5. **Repetição desnecessária.**
-6. **Opacidade.** O código é difícil de entender.
+- **Complexidade desnecessária.**
+- **Repetição desnecessária.**
+- **Opacidade.** O código é difícil de entender.

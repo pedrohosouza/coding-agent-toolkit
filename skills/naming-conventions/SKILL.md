@@ -76,9 +76,9 @@ Distinguir `delete` de `remove` evita ambiguidade sobre o efeito real da operaç
 
 ## Booleanos
 
-1. Use prefixos que formem uma pergunta de sim/não: `is`, `has`, `can`,
+- Use prefixos que formem uma pergunta de sim/não: `is`, `has`, `can`,
    `should`, `will`.
-2. Não use condicionais negativas no nome. Prefira `isValid` a `isNotValid`.
+- Não use condicionais negativas no nome. Prefira `isValid` a `isNotValid`.
 
 ```
 isActive        hasPermission
@@ -87,9 +87,9 @@ canEdit         shouldRetry
 
 ## Coleções e contadores
 
-1. Use **plural** para arrays/listas e **singular** para itens únicos.
-2. Use `count` / `total` / `size` para quantidades.
-3. Use `index` para posições; `i`, `j`, `k` apenas em laços curtos e locais.
+- Use **plural** para arrays/listas e **singular** para itens únicos.
+- Use `count` / `total` / `size` para quantidades.
+- Use `index` para posições; `i`, `j`, `k` apenas em laços curtos e locais.
 
 ```
 users            // coleção
@@ -112,22 +112,22 @@ projeto.
 
 ## Assincronismo
 
-1. Escolha **uma** convenção para funções assíncronas e aplique em todo o projeto
+- Escolha **uma** convenção para funções assíncronas e aplique em todo o projeto
    (sufixo `Async`, ou nenhum sufixo confiando no tipo de retorno).
-2. Nunca misture as duas abordagens no mesmo código-base.
+- Nunca misture as duas abordagens no mesmo código-base.
 
 ## Antipadrões a evitar
 
-1. **Nomes genéricos e vagos.** `data`, `info`, `item`, `manager`, `helper`,
+- **Nomes genéricos e vagos.** `data`, `info`, `item`, `manager`, `helper`,
    `util`, `handler` — só use quando o escopo realmente for esse; caso contrário,
    seja específico.
-2. **Abreviações não óbvias.** Prefira `message` a `msg`, `request` a `req`,
+- **Abreviações não óbvias.** Prefira `message` a `msg`, `request` a `req`,
    salvo convenções universais do domínio.
-3. **Números sequenciais.** `user1`, `user2` indicam que faltou uma estrutura
+- **Números sequenciais.** `user1`, `user2` indicam que faltou uma estrutura
    (lista, objeto). Faça distinções significativas.
-4. **Codificação de tipo no nome.** Não use notação húngara nem prefixos de tipo
+- **Codificação de tipo no nome.** Não use notação húngara nem prefixos de tipo
    (`strName`, `iCount`). O tipo é responsabilidade da linguagem, não do nome.
-5. **Argumentos de flag booleanos.** Divida em métodos independentes em vez de
+- **Argumentos de flag booleanos.** Divida em métodos independentes em vez de
    `render(true)`. O nome de cada método deve revelar o comportamento diretamente.
 
 ## Consistência

@@ -1,10 +1,14 @@
 # External Skills
 
-### [Caveman](https://github.com/JuliusBrussee/caveman)
+- npx skills add https://github.com/mattpocock/skills --skill grill-me
 
-- **Finalidade:** reduzir o uso de tokens e deixar as respostas dos agentes mais concisas.
-- **Compatibilidade declarada:** Claude Code, Codex CLI e outros agentes compatíveis com skills.
-- **Instalação:** consultar as opções no README do projeto.
+- npx skills add https://github.com/juliusbrussee/caveman --skill caveman
+
+- npx skills add https://github.com/microsoft/playwright-cli --skill playwright-cli
+
+- npx skills add blader/humanizer --global
+
+# External Marketplaces
 
 ### [Claude Plugins Official](https://github.com/anthropics/claude-plugins-official)
 
@@ -17,18 +21,6 @@
 
 - **Finalidade:** skills de marketing, CRO, copywriting, SEO, analytics e growth engineering.
 - **Compatibilidade declarada:** Claude Code e outros agentes de IA compatíveis.
-- **Instalação:** consultar o README do projeto.
-
-### [Skills for Real Engineers](https://github.com/mattpocock/skills)
-
-- **Finalidade:** coleção de skills voltadas ao trabalho cotidiano de engenharia de software.
-- **Origem:** coleção pessoal do diretório `.agents` de Matt Pocock.
-- **Instalação:** consultar o README e escolher apenas as skills necessárias.
-
-### [Humanizer](https://github.com/blader/humanizer)
-
-- **Finalidade:** identificar e remover padrões característicos de textos gerados por IA.
-- **Uso principal:** revisão e reescrita de conteúdo.
 - **Instalação:** consultar o README do projeto.
 
 ### [Taste Skill](https://github.com/Leonxlnx/taste-skill)
