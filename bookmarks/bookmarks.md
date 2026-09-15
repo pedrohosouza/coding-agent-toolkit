@@ -34,3 +34,7 @@
 - **Finalidade:** fornecer inteligência de design para criar interfaces profissionais em diferentes plataformas.
 - **Uso principal:** UI/UX, design systems, acessibilidade, componentes e implementação de interfaces.
 - **Instalação:** consultar no README as instruções específicas para o agente utilizado.
+
+# Utils
+
+### [Markitdown](https://github.com/microsoft/markitdown)
