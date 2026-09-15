@@ -1,5 +1,30 @@
 model = "gpt-5.6"
 model_reasoning_effort = "high"
-model_verbosity = "medium"
 
-approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+developer_instructions = """
+ARQUIVOS E PASTAS PROTEGIDOS:
+
+.env e .env.*
+- Não ler.
+- Não editar.
+- Não excluir.
+- Não renomear.
+- Não exibir conteúdo.
+
+AGENTS.md e AGENTS.override.md
+- Pode ler.
+- Não editar.
+- Não excluir.
+- Não renomear.
+
+.agents/
+- Pode ler.
+- Não criar, editar, sobrescrever, mover, renomear ou excluir arquivos dentro dessa pasta.
+- Tratar toda a pasta .agents como somente leitura.
+
+REGRAS GERAIS:
+- Antes de alterar qualquer arquivo, verificar se ele está dentro das proteções acima.
+- Nunca tentar contornar essas restrições usando shell, scripts, Python, sed, grep, rg, cat ou ferramentas equivalentes.
+"""
