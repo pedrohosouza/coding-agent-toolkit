@@ -10,13 +10,6 @@
 
 # External Marketplaces
 
-### [Claude Plugins Official](https://github.com/anthropics/claude-plugins-official)
-
-- **Finalidade:** diretório oficial de plugins para o Claude Code.
-- **Compatibilidade:** Claude Code.
-- **Responsável:** Anthropic.
-- **Instalação:** consultar o catálogo e as instruções de cada plugin.
-
 ### [Marketing Skills](https://github.com/coreyhaines31/marketingskills)
 
 - **Finalidade:** skills de marketing, CRO, copywriting, SEO, analytics e growth engineering.
@@ -33,6 +26,11 @@
 
 - **Finalidade:** fornecer inteligência de design para criar interfaces profissionais em diferentes plataformas.
 - **Uso principal:** UI/UX, design systems, acessibilidade, componentes e implementação de interfaces.
+- **Instalação:** consultar no README as instruções específicas para o agente utilizado.
+
+### [Context7](https://github.com/upstash/context7)
+- **Finalidade:** Documentações atualizadas
+- **Uso principal:** Documentações atualizadas
 - **Instalação:** consultar no README as instruções específicas para o agente utilizado.
 
 # Utils
