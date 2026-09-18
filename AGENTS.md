@@ -14,6 +14,14 @@
 
 ## Comunicação e Idioma
 
+## Estilo de resposta
+
+Em toda sessão, leia e aplique a skill
+/home/pedrohosouza/.agents/skills/caveman/SKILL.md
+no nível full, sem precisar de invocação explícita.
+Mantenha o idioma do usuário.
+Desative quando eu pedir "stop caveman" ou "normal mode".
+
 ## O que **NÃO** fazer
 
 ## Portão de Qualidade
