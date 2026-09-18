@@ -1,138 +1,70 @@
 ---
 name: naming-conventions
-description: Convenções de nomenclatura do projeto — prefixos de verbos em funções (get/find/list/fetch/create/update/delete etc.), booleanos, coleções e contadores, casing por tipo, assincronismo e antipadrões a evitar. Use SEMPRE que estiver escrevendo ou renomeando qualquer identificador (variável, função, classe, tipo, arquivo) ou revisando código onde nomes possam ser inconsistentes — mesmo sem pedido explícito. Aplicar por padrão; todo nome é sempre em inglês.
+description: Aplica convenções de nomes em inglês para identificadores e arquivos ao escrever, renomear ou revisar código.
 ---
 
 # Naming Conventions
 
-> Um bom nome revela a intenção. Se um nome precisa de comentário para ser
-> entendido, ele não revela sua intenção. O leitor deve conseguir inferir o que
-> algo faz, retorna e como se comporta apenas pelo nome.
+Todos os identificadores e nomes de arquivos são escritos em inglês. Preserve
+convenções da linguagem, framework e projeto quando forem mais específicas.
 
-Estas regras definem as convenções de nomenclatura adotadas no projeto. Siga-as
-por padrão; ao se desviar, deixe explícito o motivo. Todo nome é sempre em inglês.
+## Funções
 
-## Prefixos de verbos em funções
+O verbo deve comunicar comportamento e retorno:
 
-O prefixo comunica o comportamento e a expectativa de retorno. Seja consistente:
-funções com o mesmo prefixo devem se comportar de forma equivalente.
-
-### Recuperação de dados
-
-| Prefixo | Quando usar | Retorno |
-| --- | --- | --- |
-| `get` | Espera-se que o item **exista**. Ausência é um bug. | Um único item. Lança exceção se não encontrar. |
-| `find` | O item **pode ou não existir**. Ausência é resultado válido. | `null` / `Optional` / vazio. Nunca lança por ausência. |
-| `list` | Retorna uma coleção (0 ou mais itens), com filtros/paginação. | Coleção. Vazia quando não há resultados. |
-| `fetch` / `load` | Há **I/O explícito** (rede, disco, banco). | Item ou coleção, conforme o caso. |
-| `search` / `query` | Busca com critérios dinâmicos, texto livre ou múltiplos filtros. | Coleção, geralmente ordenada/paginada. |
-
-Regra prática:
-
-- Espera existir 1 → `get`
-- Pode existir 1 ou nenhum → `find`
-- Retorna vários → `list`
-
-```
-getUserById(id)          // erro se não existir → é bug
-findUserByEmail(email)   // pode retornar null → esperado
-listActiveUsers()        // coleção, 0 ou mais
-fetchUserProfile(id)     // deixa claro que há chamada de rede
-```
-
-### Criação, alteração e remoção
-
-| Prefixo | Quando usar |
+| Prefixo | Semântica |
 | --- | --- |
-| `create` | Cria uma nova entidade do zero. |
-| `add` / `insert` | Adiciona um item a uma coleção/estrutura existente. |
-| `update` | Altera uma entidade existente. |
-| `set` | Atribui um valor a uma propriedade/campo. |
-| `delete` | Apaga **permanentemente** (ex.: registro no banco). |
-| `remove` | Retira de uma coleção, sem necessariamente destruir. |
+| `get` | Retorna um item esperado; ausência é erro. |
+| `find` | Retorna um item opcional; ausência é válida. |
+| `list` | Retorna zero ou mais itens. |
+| `fetch` / `load` | Torna I/O explícito quando essa distinção for útil. |
+| `search` / `query` | Busca por critérios dinâmicos ou texto livre. |
+| `create` | Cria uma entidade. |
+| `add` / `insert` | Adiciona a uma coleção ou estrutura. |
+| `update` / `set` | Altera entidade ou atribui valor. |
+| `delete` | Apaga permanentemente. |
+| `remove` | Retira sem implicar destruição. |
 
-Distinguir `delete` de `remove` evita ambiguidade sobre o efeito real da operação.
+Para transformação e controle:
 
-### Transformação e construção
+- `parse` interpreta entrada bruta; `format` produz representação de saída.
+- `serialize` e `deserialize` convertem formatos de transporte ou persistência.
+- `build` ou `make` constroem valores compostos.
+- `validate` reporta violações; `ensure` garante estado ou falha.
+- `handle` e `on` identificam tratadores de eventos.
+- Evite `process` quando existir verbo mais específico.
 
-| Prefixo | Quando usar |
-| --- | --- |
-| `build` / `make` | Constrói um objeto composto, possivelmente em etapas. |
-| `parse` | Interpreta um formato bruto (string, buffer) em estrutura. |
-| `format` | Converte estrutura em representação de saída (ex.: texto). |
-| `serialize` / `deserialize` | Converte de/para formato de transporte/persistência. |
-| `to<Tipo>` | Conversão para outro tipo (`toDTO`, `toJSON`, `toString`). |
-| `map` / `transform` | Transforma uma coleção/valor em outra forma. |
+Funções com mesmo prefixo devem manter mesma semântica no projeto.
 
-### Validação e efeitos
+## Booleanos, coleções e quantidades
 
-| Prefixo | Quando usar |
-| --- | --- |
-| `validate` | Verifica regras e reporta erros (retorna resultado ou lança). |
-| `ensure` | Garante um estado; corrige ou lança se não for possível. |
-| `check` | Verificação simples, geralmente booleana. |
-| `handle` / `on` | Tratadores de evento (`onClick`, `handleSubmit`). |
-| `process` | Executa um fluxo de processamento sobre uma entrada. |
+- Booleanos formam pergunta com `is`, `has`, `can`, `should` ou `will`.
+- Prefira nomes positivos, como `isValid`, a negativos, como `isNotValid`.
+- Use plural para coleções e singular para um item.
+- Use `count`, `total` ou `size` para quantidades e `index` para posições.
+- Restrinja `i`, `j` e `k` a laços curtos e locais.
 
-## Booleanos
-
-- Use prefixos que formem uma pergunta de sim/não: `is`, `has`, `can`,
-   `should`, `will`.
-- Não use condicionais negativas no nome. Prefira `isValid` a `isNotValid`.
-
-```
-isActive        hasPermission
-canEdit         shouldRetry
-```
-
-## Coleções e contadores
-
-- Use **plural** para arrays/listas e **singular** para itens únicos.
-- Use `count` / `total` / `size` para quantidades.
-- Use `index` para posições; `i`, `j`, `k` apenas em laços curtos e locais.
-
-```
-users            // coleção
-user             // item único
-activeOrders     // coleção filtrada
-orderCount       // quantidade
-```
-
-## Casing por tipo
+## Casing
 
 | Elemento | Padrão |
 | --- | --- |
-| Classes, tipos, interfaces, enums | `PascalCase` |
-| Variáveis, funções, métodos, parâmetros | `camelCase` |
-| Constantes de módulo / valores fixos | `UPPER_SNAKE_CASE` |
-| Arquivos | `kebab-case` (componentes/classes podem seguir o nome do símbolo) |
+| Classes, tipos, interfaces e enums | `PascalCase` |
+| Variáveis, funções, métodos e parâmetros | `camelCase` |
+| Constantes de módulo | `UPPER_SNAKE_CASE` |
+| Arquivos | `kebab-case` |
 
-Defina **um** padrão de arquivo por tipo de artefato e mantenha-o em todo o
-projeto.
+Componentes e classes podem seguir o nome do símbolo quando a stack exigir.
 
 ## Assincronismo
 
-- Escolha **uma** convenção para funções assíncronas e aplique em todo o projeto
-   (sufixo `Async`, ou nenhum sufixo confiando no tipo de retorno).
-- Nunca misture as duas abordagens no mesmo código-base.
+Escolha entre sufixo `Async` e ausência de sufixo conforme a linguagem e o
+projeto. Nunca misture as convenções no mesmo código-base.
 
-## Antipadrões a evitar
+## Evite
 
-- **Nomes genéricos e vagos.** `data`, `info`, `item`, `manager`, `helper`,
-   `util`, `handler` — só use quando o escopo realmente for esse; caso contrário,
-   seja específico.
-- **Abreviações não óbvias.** Prefira `message` a `msg`, `request` a `req`,
-   salvo convenções universais do domínio.
-- **Números sequenciais.** `user1`, `user2` indicam que faltou uma estrutura
-   (lista, objeto). Faça distinções significativas.
-- **Codificação de tipo no nome.** Não use notação húngara nem prefixos de tipo
-   (`strName`, `iCount`). O tipo é responsabilidade da linguagem, não do nome.
-- **Argumentos de flag booleanos.** Divida em métodos independentes em vez de
-   `render(true)`. O nome de cada método deve revelar o comportamento diretamente.
-
-## Consistência
-
-O ponto central: **se você nomeia algo de uma forma, nomeie todas as coisas
-semelhantes da mesma forma.** Um `find` que às vezes lança exceção e outras
-retorna `null` é pior do que qualquer escolha de prefixo — a previsibilidade é o
-que torna os nomes úteis.
+- Nomes vagos como `data`, `info`, `item`, `manager`, `helper` e `util` quando o
+  domínio permitir nome mais preciso.
+- Abreviações não óbvias, números sequenciais e codificação de tipo no nome.
+- Argumentos booleanos que selecionam comportamentos; exponha operações com
+  nomes distintos.
+- Renomear código fora do escopo apenas para impor preferência estética.
