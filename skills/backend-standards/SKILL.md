@@ -1,6 +1,8 @@
 ---
 name: backend-standards
-description: Padrões obrigatórios ao projetar, criar, alterar ou revisar endpoints de backend/API (REST). Cobre versionamento, configuração via ambiente, formato de resposta (sucesso/erro/paginado), validação de input, integridade referencial, sanitização, paginação, filtragem/ordenação, rate limiting, CORS, idempotência, cache, health checks, graceful shutdown, logging e migrations. Use SEMPRE que a tarefa envolver rota, endpoint, controller, handler HTTP, request/response, variável de ambiente, migration, ou quando o usuário pedir para expor/consumir dados via API no backend — mesmo que não cite "padrões" explicitamente. Agnóstico de framework.
+description: Padrões obrigatórios para APIs REST. Use SEMPRE em rotas, endpoints, handlers HTTP,
+requests/responses, variáveis de ambiente ou migrations. Cobre contratos, validação, segurança,
+paginação, cache, observabilidade e operação. Agnóstico de framework.
 ---
 
 # Backend Standards

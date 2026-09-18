@@ -1,6 +1,8 @@
 ---
 name: frontend-standards
-description: Boas práticas obrigatórias ao construir ou modificar interface de frontend — componentes reutilizáveis, contratos tipados end-to-end, gerenciamento de estado (servidor vs cliente), semântica HTML, responsividade mobile-first, formulários, página 404/erro, otimização de mídia, estados de UI (loading/empty/error/success), comunicação com API e design tokens/tema. Use SEMPRE que a tarefa envolver componente, página, tela, view, formulário, layout, estilo, chamada à API a partir do cliente, estado de UI ou qualquer código de interface — mesmo que o usuário não cite "padrões". São convenções do projeto, não sugestões.
+description: Padrões obrigatórios para interfaces. Use SEMPRE em componentes, páginas, formulários,
+layouts, estilos, chamadas à API ou estados de UI. Cobre reuso, tipagem, responsividade,
+acessibilidade, mídia, erros e temas.
 ---
 
 # Boas Práticas de Frontend
