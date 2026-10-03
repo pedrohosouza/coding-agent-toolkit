@@ -42,14 +42,14 @@ claude plugin install context7@context7-marketplace
 
 ---
 
-## Grill Me
+## Grilling
 
 **Finalidade:** fazer o agente questionar uma implementação, arquitetura ou decisão técnica de forma mais crítica.
 
 Instalação:
 
 ```bash
-npx skills add https://github.com/mattpocock/skills --skill grill-me
+npx skills add https://github.com/mattpocock/skills --skill grilling
 ```
 
 Uso recomendado:
