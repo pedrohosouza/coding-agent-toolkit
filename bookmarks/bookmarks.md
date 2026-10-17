@@ -204,6 +204,35 @@ Consultar o README para instruções específicas de instalação.
 
 ---
 
+## Impeccable
+
+Repositório:
+
+```text
+https://github.com/pbakaus/impeccable
+```
+
+**Finalidade:** melhorar a qualidade do design gerado pelo agente, com princípios de design e comandos para criticar, refinar e polir interfaces.
+
+Uso recomendado:
+
+* Frontend
+* UI/UX
+* Revisão e crítica de design
+* Polimento visual de interfaces
+* Tipografia, cores e layout
+* Evitar interfaces genéricas geradas por IA
+
+Instalação:
+
+```bash
+npx skills add pbakaus/impeccable
+```
+
+Consultar o README para ver os comandos disponíveis e as opções de instalação por agente.
+
+---
+
 # 3. Utils
 
 ## MarkItDown
@@ -230,4 +259,3 @@ Pode trabalhar com formatos como:
 Útil para preparar conteúdo antes de enviá-lo para agentes de IA.
 
 ---
-
