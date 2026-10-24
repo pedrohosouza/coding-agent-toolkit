@@ -1,6 +1,4 @@
-# Skills, Plugins e Ferramentas para Agentes de Código
-
-Este documento centraliza **skills, plugins, marketplaces e utilitários** utilizados nos agentes de desenvolvimento, principalmente **OpenAI Codex** e **Claude Code**.
+# Ferramentas para Agentes de Código
 
 ---
 
@@ -18,27 +16,6 @@ Principais recursos:
 * Resolução automática de bibliotecas
 * Integração via MCP
 * Skill automática para consultas de documentação
-
-### Codex
-
-Adicionar o marketplace:
-
-```bash
-codex plugin marketplace add upstash/context7
-```
-
-Instalar o plugin:
-
-```bash
-codex plugin add context7@context7-marketplace
-```
-
-### Claude Code
-
-```bash
-claude plugin marketplace add upstash/context7
-claude plugin install context7@context7-marketplace
-```
 
 ---
 
@@ -125,7 +102,7 @@ Uso recomendado:
 
 ---
 
-# 2. Marketplaces de Skills
+# 2. Marketplaces
 
 ## Marketing Skills
 
@@ -143,13 +120,6 @@ https://github.com/coreyhaines31/marketingskills
 * SEO
 * Analytics
 * Growth Engineering
-
-Compatibilidade declarada principalmente com:
-
-* Claude Code
-* Agentes de IA compatíveis com Skills
-
-Para instalação, consultar o README do projeto.
 
 ---
 
@@ -172,8 +142,6 @@ Uso recomendado:
 * Dashboards
 * Direção visual
 * Revisão estética de interfaces
-
-Consultar o README para selecionar e instalar as skills desejadas.
 
 ---
 
@@ -200,8 +168,6 @@ https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
 * Experiência do usuário
 * Implementação frontend
 
-Consultar o README para instruções específicas de instalação.
-
 ---
 
 ## Impeccable
@@ -223,19 +189,11 @@ Uso recomendado:
 * Tipografia, cores e layout
 * Evitar interfaces genéricas geradas por IA
 
-Instalação:
-
-```bash
-npx skills add pbakaus/impeccable
-```
-
-Consultar o README para ver os comandos disponíveis e as opções de instalação por agente.
-
 ---
 
-# 3. Utils
+# 3. Úteis
 
-## MarkItDown
+## MarkitDown
 
 Repositório:
 

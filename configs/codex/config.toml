@@ -23,5 +23,5 @@ AGENTS.md e AGENTS.override.md
 
 REGRAS GERAIS:
 - Antes de alterar qualquer arquivo, verificar se ele está dentro das proteções acima.
-- Nunca tentar contornar essas restrições usando shell, scripts, Python, sed, grep, rg, cat ou ferramentas equivalentes.
+- Nunca tentar contornar essas restrições.
 """
