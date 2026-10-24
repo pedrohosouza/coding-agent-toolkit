@@ -5,8 +5,6 @@ description: Define mensagens e organização de commits com Conventional Commit
 
 # Commit Conventions
 
-Siga primeiro `commitlint`, hooks e convenções existentes no repositório.
-
 ## Formato
 
 ```text

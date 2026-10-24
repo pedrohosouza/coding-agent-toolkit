@@ -5,8 +5,7 @@ description: Aplica regras de clareza, simplicidade e manutenção ao escrever, 
 
 # Clean Code
 
-Use estas regras em toda alteração de código. Preserve convenções locais e deixe
-explícito qualquer desvio necessário.
+Use estas regras em toda alteração de código.
 
 ## Regras centrais
 
@@ -14,6 +13,9 @@ explícito qualquer desvio necessário.
 - Mantenha responsabilidades coesas e dependências explícitas.
 - Prefira código direto a abstrações, configuração ou generalização prematuras.
 - Deixe código tocado igual ou mais claro, sem expandir o escopo da tarefa.
+- Evite código morto e dependências desnecessárias.
+- Evite números e strings mágicos; use constantes ou enums nomeados.
+- Trate erros explicitamente; não engula exceções.
 
 ## Controle de fluxo
 
@@ -29,9 +31,7 @@ explícito qualquer desvio necessário.
   ocultos.
 - Não use argumentos booleanos para selecionar comportamentos; exponha operações
   distintas.
-- Use injeção de dependência e aplique a Lei de Deméter.
-- Evite objetos híbridos que misturam comportamento de domínio com estruturas de
-  transporte.
+- Use injeção de dependência e inversão de dependência.
 - Prefira objetos de valor quando primitivos escondem regras importantes.
 
 ## Legibilidade
