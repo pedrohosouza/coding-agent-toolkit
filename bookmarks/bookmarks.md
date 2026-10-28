@@ -102,6 +102,36 @@ Uso recomendado:
 
 ---
 
+## Security Audit
+
+Repositório:
+
+```text
+https://github.com/cloudflare/security-audit-skill
+```
+
+**Finalidade:** transformar o agente em um auditor de segurança, com auditoria em seis fases (reconhecimento, caça a vulnerabilidades, validação por verificadores independentes, saída estruturada, verificação dos registros e relatório).
+
+Instalação:
+
+```bash
+npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit
+```
+
+Use `--global` para instalação em nível de usuário.
+
+Uso recomendado:
+
+* Auditoria de segurança completa de um repositório
+* Revisão focada em um diretório
+* Execuções repetidas para ampliar a cobertura
+* Relatórios com achados `confirmed`, `needs_validation` e `rejected`
+* Playbooks por classe de ataque (web/auth, supply chain, cloud/IaC, apps com LLM, etc.)
+
+Requisitos: agente com subagentes paralelos e Node.js. Sandbox recomendado para o agente construir ou executar código do alvo.
+
+---
+
 # 2. Marketplaces
 
 ## Marketing Skills
