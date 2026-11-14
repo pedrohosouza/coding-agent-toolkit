@@ -257,6 +257,7 @@ export class PrismaService extends ExtendedPrismaClientBase {
 - `page` começa em `1`.
 - `perPage` padrão é `10`; máximo é `100`.
 - Use `search` apenas com `searchFields` vindos de uma constante `<ENTITY>_SEARCHABLE_FIELDS`.
+- Para busca que ignora acentos, veja `references/search.md`.
 - Ordenação usa `sort` e `order`, validados contra `<ENTITY>_SORTABLE_FIELDS` e `SORT_ORDERS`.
 - Nunca aceite campos de busca, filtro ou ordenação arbitrários.
 - O retorno é um `PaginatedResult`; o `ResponseEnvelopeInterceptor` o converte em `{ data, pagination }`.
@@ -282,6 +283,8 @@ export class ListOrdersQueryDto extends PaginationQueryDto {
   order: SortOrder = 'desc';
 }
 ```
+
+- Ajuste os defaults de `sort` e `order` do DTO por domínio (ex.: `name`/`asc` para cadastros, `createdAt`/`desc` para registros temporais); não copie os do template sem avaliar.
 
 ### Uso no service
 

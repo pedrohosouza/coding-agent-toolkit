@@ -2,7 +2,7 @@ import { Transform } from 'class-transformer';
 import { IsIn, IsOptional, IsString, MaxLength } from 'class-validator';
 import { SORT_ORDERS } from '../../../common/constants/sort-orders.constant.js';
 import { PaginationQueryDto } from '../../../common/dtos/pagination-query.dto.js';
-import type { SortOrder } from '../../../common/types/sort-order.type.js';
+import type { SortOrder } from '../../../common/constants/sort-orders.constant.js';
 import { {{ENTITY_NAME}}_SORTABLE_FIELDS } from '../constants/{{entity-name}}-sortable-fields.constant.js';
 
 export class List{{EntityNames}}QueryDto extends PaginationQueryDto {

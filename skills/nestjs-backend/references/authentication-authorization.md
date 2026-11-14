@@ -51,3 +51,49 @@ if (!order || order.userId !== session.user.id) {
 - Nunca exponha tokens, hashes, segredos ou dados sensíveis da sessão.
 - Aplique rate limit em rotas de login, reset de senha e webhooks.
 - Secrets ficam apenas na camada de configuração.
+
+## Configuração do Better Auth
+
+A instância é criada em `src/common/modules/auth/factories/auth.factory.ts` (`createAuth`) e registrada em `AuthModule` com `BetterAuthModule.forRootAsync({ isGlobal: true })`, injetando `PrismaService` e `ConfigService`.
+
+- Desative o body parser do Nest: `NestFactory.create(AppModule, { bodyParser: false })`. O Better Auth lê o body da requisição por conta própria; o integration package reativa o parsing das demais rotas.
+- Passe `disableTrustedOriginsCors: true` ao módulo: o CORS é responsabilidade do `app.enableCors()` (veja `references/cors.md`).
+- `trustedOrigins` vem de `CORS_ALLOWED_ORIGINS`, convertido por `parseAllowedOrigins`, a mesma função usada no CORS; nunca duplique a lista.
+- Use `advanced: { database: { generateId: false } }` para que o banco gere o UUID v7 (`uuidv7()`) de `User`, `Session`, `Account` e `Verification`.
+- `database` usa `prismaAdapter(prismaService, { provider: 'postgresql' })`.
+- `secret` (`BETTER_AUTH_SECRET`, mínimo 32 caracteres) e `baseURL` (`BETTER_AUTH_URL`) vêm de `ConfigService`.
+- Provedores: e-mail e senha (`emailAndPassword.enabled`) e Google (`GOOGLE_CLIENT_ID` e `GOOGLE_CLIENT_SECRET`, obrigatórios no schema de env).
+- O rate limit do Better Auth fica ativo (`rateLimit.enabled`), com `window` derivada de `THROTTLE_TTL_MS`, `max` de `THROTTLE_ANONYMOUS_LIMIT` e `customRules` com `THROTTLE_SENSITIVE_LIMIT` para `SENSITIVE_ROUTES`: `/sign-in/*`, `/sign-up/*`, `/forget-password` e `/reset-password`.
+- Models `User`, `Session`, `Account` e `Verification` seguem o schema do Better Auth com `@@map` em snake_case plural, ids `@db.Uuid` e `onDelete: Cascade` nas relações com `User`.
+
+```ts
+export function createAuth(
+  prismaService: PrismaService,
+  configService: ConfigService,
+) {
+  return betterAuth({
+    database: prismaAdapter(prismaService, { provider: 'postgresql' }),
+    secret: configService.getOrThrow<string>('BETTER_AUTH_SECRET'),
+    baseURL: configService.getOrThrow<string>('BETTER_AUTH_URL'),
+    trustedOrigins: parseAllowedOrigins(
+      configService.getOrThrow<string>('CORS_ALLOWED_ORIGINS'),
+    ),
+    emailAndPassword: { enabled: true },
+    socialProviders: {
+      google: {
+        clientId: configService.getOrThrow<string>('GOOGLE_CLIENT_ID'),
+        clientSecret: configService.getOrThrow<string>('GOOGLE_CLIENT_SECRET'),
+      },
+    },
+    advanced: { database: { generateId: false } },
+    rateLimit: {
+      enabled: true,
+      window: windowInSeconds,
+      max: configService.getOrThrow<number>('THROTTLE_ANONYMOUS_LIMIT'),
+      customRules: Object.fromEntries(
+        SENSITIVE_ROUTES.map((route) => [route, sensitiveRule]),
+      ),
+    },
+  });
+}
+```

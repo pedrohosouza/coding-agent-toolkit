@@ -1,6 +1,6 @@
 ---
 name: nestjs-backend
-description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar APIs NestJS. Cobre estrutura de pastas, nomenclatura, configuração por ambiente, autenticação, autorização, DTOs, validação, integridade referencial, sanitização, respostas padronizadas, paginação, filtros, ordenação, UUIDs, rate limiting, CORS, health checks, graceful shutdown e migrations. Use para rota, endpoint, controller, service, DTO, guard, schema Prisma, migration, env ou health check de backend.
+description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar APIs NestJS. Cobre estrutura de pastas, nomenclatura, configuração por ambiente, autenticação, autorização, DTOs, validação, integridade referencial, sanitização, respostas padronizadas, paginação, filtros, ordenação, UUIDs, rate limiting, CORS, health checks, graceful shutdown, migrations, seeds, busca normalizada, formatação, lint, Docker e Better Auth. Use para rota, endpoint, controller, service, DTO, guard, schema Prisma, migration, seed, busca, env ou health check de backend.
 ---
 
 # Padrões NestJS + Prisma
@@ -30,8 +30,12 @@ description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou re
 - Sanitize e restrinja a saída; nunca exponha modelos Prisma, hashes, tokens ou segredos.
 - Toda PK e FK é UUID v7 gerado pelo banco (`@db.Uuid`, `uuidv7()`); toda rota com `:id` usa `ParseUUIDPipe` e todo id em DTO usa `@IsUUID()`.
 - Listagens usam `prisma.<model>.paginate()` e DTOs que estendem `PaginationQueryDto`.
+- Busca textual que deve ignorar acentos usa coluna `normalized*` e `normalizeText()`; veja `references/search.md`.
+- Seeds ficam em `prisma/seeds/`, são idempotentes e têm um arquivo por entidade; veja `references/seeds.md`.
 - Health check usa `@nestjs/terminus`, com `liveness` e `readiness`; todo serviço de que a API depende tem indicador no readiness.
 - Toda mudança de schema passa por migration versionada.
+- O código deve ser explicativo por si só: nomes claros e funções pequenas; não escreva comentários.
+- Antes de concluir, `npm run format`, `npm run lint` e `npm run typecheck` devem passar sem erro ou warning; veja `references/formatting-linting.md`.
 - Use `camelCase` para variáveis, funções e propriedades.
 - Use `PascalCase` para classes, interfaces, types e enums.
 - Use `kebab-case` para arquivos e pastas.
@@ -44,7 +48,7 @@ Leia apenas a referência necessária para a tarefa:
 - Estrutura de pastas: `references/folder-structure.md`
 - Nomenclatura: `references/naming-conventions.md`
 - Configuração e variáveis de ambiente: `references/configuration.md`
-- Autenticação, autorização, Better Auth, guards, sessão e IDOR: `references/authentication-authorization.md`
+- Autenticação, autorização, configuração do Better Auth, guards, sessão e IDOR: `references/authentication-authorization.md`
 - Respostas padronizadas: `references/responses.md`
 - DTOs e validação de entrada: `references/validation.md`
 - Validação de relacionamentos: `references/relationships.md`
@@ -53,41 +57,47 @@ Leia apenas a referência necessária para a tarefa:
 - CORS: `references/cors.md`
 - Graceful shutdown: `references/graceful-shutdown.md`
 - Prisma, UUIDs, migrations, queries, `paginate()` e transações: `references/prisma.md`
+- Seeds (`prisma/seeds/`, `prisma db seed`, dados iniciais): `references/seeds.md`
+- Busca sem acento e sem diferença de maiúsculas (`normalizedName`, `normalizeText`): `references/search.md`
+- Formatação, lint e typecheck (Prettier, oxlint, portão de qualidade): `references/formatting-linting.md`
+- Docker, Dockerfile, docker-compose e deploy: `references/docker-deployment.md`
 - Health checks, Terminus e readiness de dependências: `references/health-checks.md`
 
 ## Templates
 
 Ao criar um módulo novo, use os templates em `templates/` e adapte-os ao domínio. Cada template vira um arquivo na pasta indicada:
 
-| Template | Destino |
-|---|---|
-| `module.ts.tpl` | `<entity-names>.module.ts` |
-| `controller.ts.tpl` | `controllers/<entity-names>.controller.ts` |
-| `create-dto.ts.tpl` | `dtos/create-<entity-name>.dto.ts` |
-| `update-dto.ts.tpl` | `dtos/update-<entity-name>.dto.ts` |
-| `list-query-dto.ts.tpl` | `dtos/list-<entity-names>-query.dto.ts` |
-| `create-service.ts.tpl` | `services/create-<entity-name>.service.ts` |
-| `get-service.ts.tpl` | `services/get-<entity-name>.service.ts` |
-| `list-service.ts.tpl` | `services/list-<entity-names>.service.ts` |
-| `update-service.ts.tpl` | `services/update-<entity-name>.service.ts` |
-| `delete-service.ts.tpl` | `services/delete-<entity-name>.service.ts` |
-| `exists-validator.ts.tpl` | `validators/<entity-name>-exists.validator.ts` |
-| `select.constant.ts.tpl` | `constants/<entity-name>-select.constant.ts` |
+| Template                            | Destino                                                 |
+| ----------------------------------- | ------------------------------------------------------- |
+| `module.ts.tpl`                     | `<entity-names>.module.ts`                              |
+| `controller.ts.tpl`                 | `controllers/<entity-names>.controller.ts`              |
+| `create-dto.ts.tpl`                 | `dtos/create-<entity-name>.dto.ts`                      |
+| `update-dto.ts.tpl`                 | `dtos/update-<entity-name>.dto.ts`                      |
+| `list-query-dto.ts.tpl`             | `dtos/list-<entity-names>-query.dto.ts`                 |
+| `create-service.ts.tpl`             | `services/create-<entity-name>.service.ts`              |
+| `get-service.ts.tpl`                | `services/get-<entity-name>.service.ts`                 |
+| `list-service.ts.tpl`               | `services/list-<entity-names>.service.ts`               |
+| `update-service.ts.tpl`             | `services/update-<entity-name>.service.ts`              |
+| `delete-service.ts.tpl`             | `services/delete-<entity-name>.service.ts`              |
+| `exists-validator.ts.tpl`           | `validators/<entity-name>-exists.validator.ts`          |
+| `select.constant.ts.tpl`            | `constants/<entity-name>-select.constant.ts`            |
 | `searchable-fields.constant.ts.tpl` | `constants/<entity-name>-searchable-fields.constant.ts` |
-| `sortable-fields.constant.ts.tpl` | `constants/<entity-name>-sortable-fields.constant.ts` |
+| `sortable-fields.constant.ts.tpl`   | `constants/<entity-name>-sortable-fields.constant.ts`   |
 
 Substitua os placeholders (exemplo para a entidade `Order`):
 
-| Placeholder | Formato | Exemplo |
-|---|---|---|
-| `{{EntityName}}` | PascalCase, singular | `Order` |
-| `{{entityName}}` | camelCase, singular; também é o delegate do Prisma (`prisma.order`) | `order` |
-| `{{entity-name}}` | kebab-case, singular | `order` |
-| `{{ENTITY_NAME}}` | UPPER_SNAKE_CASE, singular | `ORDER` |
-| `{{EntityNames}}` | PascalCase, plural | `Orders` |
-| `{{entity-names}}` | kebab-case, plural | `orders` |
+| Placeholder        | Formato                                                             | Exemplo  |
+| ------------------ | ------------------------------------------------------------------- | -------- |
+| `{{EntityName}}`   | PascalCase, singular                                                | `Order`  |
+| `{{entityName}}`   | camelCase, singular; também é o delegate do Prisma (`prisma.order`) | `order`  |
+| `{{entity-name}}`  | kebab-case, singular                                                | `order`  |
+| `{{ENTITY_NAME}}`  | UPPER_SNAKE_CASE, singular                                          | `ORDER`  |
+| `{{EntityNames}}`  | PascalCase, plural                                                  | `Orders` |
+| `{{entity-names}}` | kebab-case, plural                                                  | `orders` |
 
 - O model Prisma deve se chamar `{{EntityName}}`, para que `prisma.{{entityName}}` exista.
 - O plural é usado no module, no controller, na rota, no service de listagem e no DTO de listagem; o singular, no restante.
+
+O `list-service.ts.tpl` não normaliza a busca. Quando a entidade exigir busca normalizada (sem acento e sem diferença de maiúsculas), siga `references/search.md`: coluna `normalized*`, `normalizeText()` no service e `SEARCHABLE_FIELDS` apontando para ela.
 
 Não crie arquivos ou métodos vazios. Remova o que não for necessário.
