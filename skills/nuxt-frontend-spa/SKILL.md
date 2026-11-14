@@ -1,6 +1,6 @@
 ---
 name: nuxt-frontend-spa
-description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar aplicações Nuxt SPA (ssr false, sem backend próprio) com Nuxt UI. Cobre estrutura de pastas, sufixos de arquivo, nomenclatura, componentes, composables, páginas, layouts, middleware de rota, types da API, schemas Zod, formulários, cliente HTTP $api e contrato com o backend, data fetching, config e variáveis de ambiente, toasts e feedback ao usuário, estados de UI, acessibilidade, responsividade, imagens, temas, dark mode e páginas de erro. Use SEMPRE que a tarefa envolver página, componente, composable, formulário, middleware, schema, type, chamada à API, toast, variável de ambiente ou estilo no frontend.
+description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar aplicações Nuxt SPA (ssr false, sem backend próprio) com Nuxt UI. Cobre estrutura de pastas, sufixos de arquivo, nomenclatura, componentes, composables, páginas, layouts, middleware de rota, types da API, schemas Zod, formulários, cliente HTTP $api e contrato com o backend, data fetching, config e variáveis de ambiente, toasts e feedback ao usuário, estados de UI, acessibilidade, responsividade, imagens, temas, dark mode e páginas de erro, formatação e lint. Use SEMPRE que a tarefa envolver página, componente, composable, formulário, middleware, schema, type, chamada à API, toast, variável de ambiente ou estilo no frontend.
 ---
 
 # Padrões Nuxt SPA + Nuxt UI
@@ -75,6 +75,7 @@ Estas regras se aplicam a qualquer tela, componente ou fluxo Nuxt novo ou altera
 - Trate sempre loading, empty, error e success.
 - Toda ação tem feedback visível (loading, toast de sucesso e toast de erro); nenhuma falha é silenciosa.
 - Toda mutação passa por `useApiAction`, sem exceção; erros por campo vêm de `validationErrors`.
+- Antes de concluir, `npm run format`, `npm run lint` e `npm run typecheck` devem passar sem erro ou warning; veja `references/formatting-linting.md`.
 - Textos exibidos ao usuário em português; código, nomes e comentários em inglês.
 - Nunca acesse `process.env`; configuração vem de `runtimeConfig.public` com `NUXT_PUBLIC_*`.
 - Nunca guarde segredo no frontend.
@@ -106,6 +107,7 @@ Leia apenas a referência necessária:
 - Imagens, vídeos e assets: `references/assets.md`
 - Tema, tokens e dark mode: `references/theming.md`
 - Páginas de erro: `references/error-pages.md`
+- Formatação, lint e typecheck (Prettier, ESLint, portão de qualidade): `references/formatting-linting.md`
 
 ## Não fazer (SPA)
 
