@@ -61,3 +61,13 @@ npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill u
 ```bash
 npx skills add https://github.com/pbakaus/impeccable --skill impeccable
 ```
+
+## Plugins
+
+### Context7
+
+```bash
+codex plugin marketplace add upstash/context7
+codex plugin add context7@context7-marketplace
+claude plugin install context7@claude-plugins-official
+```

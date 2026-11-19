@@ -44,6 +44,17 @@ for args in "${install[@]}"; do
   npx skills add "${parts[@]}" --global --yes || failed+=("$args")
 done
 
+echo "== Plugins =="
+plugin_cmds=(
+  "codex plugin marketplace add upstash/context7"
+  "codex plugin add context7@context7-marketplace"
+  "claude plugin install context7@claude-plugins-official"
+)
+for cmd in "${plugin_cmds[@]}"; do
+  echo ">> $cmd"
+  $cmd || failed+=("$cmd")
+done
+
 if ((${#failed[@]})); then
   echo "Failed:" >&2
   printf '  %s\n' "${failed[@]}" >&2
