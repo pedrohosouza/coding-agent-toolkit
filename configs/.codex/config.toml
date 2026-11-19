@@ -3,13 +3,6 @@ sandbox_mode = "workspace-write"
 developer_instructions = """
 ARQUIVOS E PASTAS PROTEGIDOS:
 
-.env
-- Não ler.
-- Não editar.
-- Não excluir.
-- Não renomear.
-- Não exibir conteúdo.
-
 AGENTS.md e AGENTS.override.md
 - Pode ler.
 - Não editar.

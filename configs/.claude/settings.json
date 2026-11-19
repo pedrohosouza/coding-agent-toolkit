@@ -3,6 +3,5 @@
   "permissions": {
     "defaultMode": "plan"
   },
-  "includeCoAuthoredBy": false,
   "model": "opusplan"
 }

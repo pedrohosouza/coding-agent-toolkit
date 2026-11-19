@@ -1,249 +1,63 @@
-# Ferramentas para Agentes de Código
+# Bookmarks
 
----
+## Este repositório
 
-# 1. Skills
+```bash
+npx skills add pedrohosouza/coding-agent-toolkit
+```
 
-## Context7
+## Skills
 
-**Finalidade:** fornecer documentação atualizada de bibliotecas, frameworks e APIs diretamente aos agentes de código.
-
-Principais recursos:
-
-* Busca de documentação atualizada
-* Redução de respostas baseadas em APIs antigas
-* Consulta de exemplos de código
-* Resolução automática de bibliotecas
-* Integração via MCP
-* Skill automática para consultas de documentação
-
----
-
-## Grilling
-
-**Finalidade:** fazer o agente questionar uma implementação, arquitetura ou decisão técnica de forma mais crítica.
-
-Instalação:
+### Grilling
 
 ```bash
 npx skills add https://github.com/mattpocock/skills --skill grilling
 ```
 
-Uso recomendado:
-
-* Revisão de arquitetura
-* Validação de decisões técnicas
-* Questionamento de requisitos
-* Identificação de pontos não considerados
-* Code review mais crítico
-
----
-
-## Caveman
-
-**Finalidade:** simplificar explicações técnicas e incentivar soluções menos complexas.
-
-Instalação:
+### Caveman
 
 ```bash
 npx skills add https://github.com/juliusbrussee/caveman --skill caveman
 ```
 
-Uso recomendado:
-
-* Redução de complexidade
-* Refatoração
-* Arquitetura simples
-* Evitar overengineering
-* Explicar soluções técnicas de forma objetiva
-
----
-
-## Playwright CLI
-
-**Finalidade:** permitir automação e testes utilizando navegador.
-
-Instalação:
+### Playwright CLI
 
 ```bash
 npx skills add https://github.com/microsoft/playwright-cli --skill playwright-cli
 ```
 
-Uso recomendado:
-
-* Testes E2E
-* Validação de interfaces
-* Navegação automática
-* Testes de formulários
-* Captura de screenshots
-* Debug de aplicações web
-
----
-
-## Humanizer
-
-**Finalidade:** melhorar textos produzidos por agentes, evitando respostas excessivamente artificiais ou com aparência típica de IA.
-
-Instalação global:
+### Humanizer
 
 ```bash
-npx skills add blader/humanizer --global
+npx skills add https://github.com/blader/humanizer --skill humanizer
 ```
 
-Uso recomendado:
-
-* Documentação
-* README
-* Pull Requests
-* Issues
-* Mensagens para usuários
-* Textos de interface
-* Comunicação técnica
-
----
-
-## Security Audit
-
-Repositório:
-
-```text
-https://github.com/cloudflare/security-audit-skill
-```
-
-**Finalidade:** transformar o agente em um auditor de segurança, com auditoria em seis fases (reconhecimento, caça a vulnerabilidades, validação por verificadores independentes, saída estruturada, verificação dos registros e relatório).
-
-Instalação:
+### Security Audit
 
 ```bash
 npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit
 ```
 
-Use `--global` para instalação em nível de usuário.
+### Marketing Skills
 
-Uso recomendado:
-
-* Auditoria de segurança completa de um repositório
-* Revisão focada em um diretório
-* Execuções repetidas para ampliar a cobertura
-* Relatórios com achados `confirmed`, `needs_validation` e `rejected`
-* Playbooks por classe de ataque (web/auth, supply chain, cloud/IaC, apps com LLM, etc.)
-
-Requisitos: agente com subagentes paralelos e Node.js. Sandbox recomendado para o agente construir ou executar código do alvo.
-
----
-
-# 2. Marketplaces
-
-## Marketing Skills
-
-Repositório:
-
-```text
-https://github.com/coreyhaines31/marketingskills
+```bash
+npx skills add coreyhaines31/marketingskills
 ```
 
-**Finalidade:** conjunto de skills voltadas para:
+### Taste Skill
 
-* Marketing
-* CRO
-* Copywriting
-* SEO
-* Analytics
-* Growth Engineering
-
----
-
-## Taste Skill
-
-Repositório:
-
-```text
-https://github.com/Leonxlnx/taste-skill
+```bash
+npx skills add https://github.com/leonxlnx/taste-skill --skill design-taste-frontend
 ```
 
-**Finalidade:** melhorar o senso visual do agente e evitar interfaces genéricas ou com aparência excessivamente produzida por IA.
+### UI UX Pro Max
 
-Uso recomendado:
-
-* Frontend
-* UI/UX
-* Redesign
-* Landing pages
-* Dashboards
-* Direção visual
-* Revisão estética de interfaces
-
----
-
-## UI UX Pro Max Skill
-
-Repositório:
-
-```text
-https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+```bash
+npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max
 ```
 
-**Finalidade:** adicionar conhecimento especializado em design e construção de interfaces.
+### Impeccable
 
-Áreas principais:
-
-* UI/UX
-* Design Systems
-* Acessibilidade
-* Componentes
-* Responsividade
-* Layout
-* Tipografia
-* Cores
-* Experiência do usuário
-* Implementação frontend
-
----
-
-## Impeccable
-
-Repositório:
-
-```text
-https://github.com/pbakaus/impeccable
+```bash
+npx skills add https://github.com/pbakaus/impeccable --skill impeccable
 ```
-
-**Finalidade:** melhorar a qualidade do design gerado pelo agente, com princípios de design e comandos para criticar, refinar e polir interfaces.
-
-Uso recomendado:
-
-* Frontend
-* UI/UX
-* Revisão e crítica de design
-* Polimento visual de interfaces
-* Tipografia, cores e layout
-* Evitar interfaces genéricas geradas por IA
-
----
-
-# 3. Úteis
-
-## MarkitDown
-
-Repositório:
-
-```text
-https://github.com/microsoft/markitdown
-```
-
-**Finalidade:** converter diferentes tipos de arquivos para Markdown.
-
-Pode trabalhar com formatos como:
-
-* PDF
-* Word
-* PowerPoint
-* Excel
-* HTML
-* CSV
-* Imagens
-* Arquivos diversos
-
-Útil para preparar conteúdo antes de enviá-lo para agentes de IA.
-
----
