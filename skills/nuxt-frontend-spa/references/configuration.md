@@ -36,6 +36,22 @@ A chave `apiBaseUrl` é preenchida por `NUXT_PUBLIC_API_BASE_URL`.
 NUXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
+### Organização do `.env` e `.env.example`
+
+- Variáveis do app vêm primeiro, sem agrupamento por prefixo: `NODE_ENV`, `PORT` e similares.
+- As demais variáveis são agrupadas por prefixo (`NUXT_PUBLIC_API_`, `NUXT_PUBLIC_SALES_`).
+- Uma linha em branco separa o bloco do app e cada grupo de prefixo.
+- `.env` e `.env.example` usam a mesma ordem e os mesmos grupos.
+
+```text
+NODE_ENV=development
+PORT=3000
+
+NUXT_PUBLIC_API_BASE_URL=http://localhost:8000
+
+NUXT_PUBLIC_SALES_WHATSAPP_NUMBER=
+```
+
 ## Uso
 
 ```ts

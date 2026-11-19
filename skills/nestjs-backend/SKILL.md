@@ -22,6 +22,7 @@ description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou re
 - Use Better Auth para autenticação.
 - Nunca acesse `process.env` diretamente no código de aplicação.
 - Toda variável de ambiente é validada no boot pela camada de configuração.
+- `.env` e `.env.example`: variáveis do app primeiro (`NODE_ENV`, `PORT`), depois grupos por prefixo, com linha em branco entre os grupos; veja `references/configuration.md`.
 - Toda rota é autenticada por padrão; rotas públicas usam `@AllowAnonymous()`.
 - Autorização é verificada por recurso, prevenindo IDOR/BOLA.
 - Valide toda entrada externa: body, query, params e headers.

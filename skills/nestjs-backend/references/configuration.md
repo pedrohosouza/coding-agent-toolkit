@@ -8,6 +8,7 @@
 - Toda env nova entra no schema de validação antes do primeiro uso.
 - A aplicação falha no boot se uma env obrigatória estiver ausente ou inválida.
 - Mantenha `.env.example` atualizado, sem valores reais.
+- `.env` e `.env.example` seguem a organização descrita em "Organização do `.env`".
 - Nunca exponha segredos em DTOs, respostas ou repositório.
 
 ## Estrutura
@@ -23,11 +24,22 @@ src/common/modules/environment/
 - O schema usa Joi, com tipo, obrigatoriedade e default explícitos.
 - O acesso é sempre por `ConfigService.getOrThrow<T>('NAME')`.
 
-## Exemplos de variáveis
+## Organização do `.env`
+
+- Variáveis do app vêm primeiro, sem agrupamento por prefixo: `NODE_ENV`, `PORT` e similares.
+- As demais variáveis são agrupadas por prefixo (`DATABASE_`, `BETTER_AUTH_`, `CORS_`).
+- Uma linha em branco separa o bloco do app e cada grupo de prefixo.
+- Dentro de cada grupo, mantenha as variáveis juntas e em ordem lógica.
+- `.env` e `.env.example` usam a mesma ordem e os mesmos grupos; o `.env.example` não tem valores reais.
 
 ```text
+NODE_ENV=development
+PORT=3000
+CORS_ALLOWED_ORIGINS=
+
 DATABASE_URL=
+
 BETTER_AUTH_SECRET=
 BETTER_AUTH_URL=
-CORS_ALLOWED_ORIGINS=
+
 ```

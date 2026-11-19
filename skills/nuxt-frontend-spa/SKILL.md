@@ -78,6 +78,7 @@ Estas regras se aplicam a qualquer tela, componente ou fluxo Nuxt novo ou altera
 - Antes de concluir, `npm run format`, `npm run lint` e `npm run typecheck` devem passar sem erro ou warning; veja `references/formatting-linting.md`.
 - Textos exibidos ao usuário em português; código, nomes e comentários em inglês.
 - Nunca acesse `process.env`; configuração vem de `runtimeConfig.public` com `NUXT_PUBLIC_*`.
+- `.env` e `.env.example`: variáveis do app primeiro (`NODE_ENV`, `PORT`), depois grupos por prefixo, com linha em branco entre os grupos; veja `references/configuration.md`.
 - Nunca guarde segredo no frontend.
 - Use skeletons em vez de spinners para carregamento de conteúdo.
 - Previna double-submit em ações assíncronas.
