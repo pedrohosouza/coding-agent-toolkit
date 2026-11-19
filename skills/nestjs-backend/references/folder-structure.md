@@ -7,6 +7,7 @@
 - Módulos transversais com providers próprios ficam em `src/common/modules/` (ex.: `prisma`, `environment`, `storage`, `mailer`).
 - Funções puras sem dependência de NestJS ficam em `src/utils/`.
 - Prisma schema, migrations e seeds ficam em `prisma/`, na raiz do projeto.
+- Specs unitários ficam ao lado do arquivo testado (`*.spec.ts`); testes E2E, factories e helpers ficam em `test/`, na raiz; veja `references/testing.md`.
 - Agrupe arquivos por responsabilidade em pastas no plural.
 - Nomeie cada arquivo no singular, com o sufixo do artefato: `controllers/user.controller.ts`, `services/create-user.service.ts`.
 - Um artefato principal por arquivo.
@@ -19,6 +20,11 @@ prisma/
 ├── schema.prisma
 ├── migrations/
 └── seeds/
+test/
+├── e2e/
+├── factories/
+├── helpers/
+└── setup/
 src/
 ├── main.ts
 ├── app.module.ts
@@ -56,6 +62,7 @@ src/common/
 - `constants/`: constantes genéricas, como `SORT_ORDERS` e limites de paginação.
 - `dtos/`: DTOs genéricos, como `PaginationQueryDto`.
 - `decorators/`: decorators genéricos, como `@CurrentUser()`.
+- `factories/`: factories de runtime, como `configureApp` (bootstrap compartilhado entre `main.ts` e testes E2E) e a exceção de validação.
 - `filters/`: exception filters globais.
 - `guards/`: guards reutilizáveis, como autenticação e permissões.
 - `interceptors/`: interceptors globais de transformação, como o envelope de resposta.

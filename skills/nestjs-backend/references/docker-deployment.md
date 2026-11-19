@@ -11,7 +11,7 @@
 - O `runtime` define `NODE_ENV=production`, instala `openssl` (exigido pelo Prisma no alpine) e roda como `USER node`.
 - O container aplica migrations no start com `npx prisma migrate deploy` antes de iniciar a aplicação; nunca use `migrate dev` nem `migrate reset` no container.
 - Segredos e variáveis são injetados pelo ambiente; nunca entram na imagem.
-- Mantenha `.dockerignore` com `node_modules`, `dist` e `.env`.
+- Mantenha `.dockerignore` com `node_modules`, `dist`, `coverage`, `test`, `.env` e `.env.test`.
 - A porta exposta é a mesma de `PORT`.
 - Postgres local é provido por `docker-compose.yml`, com a mesma major usada em produção (18, por causa do `uuidv7()`), `healthcheck` com `pg_isready` e volume nomeado.
 - Credenciais do compose servem apenas para desenvolvimento local.

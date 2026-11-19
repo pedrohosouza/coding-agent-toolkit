@@ -12,6 +12,7 @@
 - Contratos da API ficam em `types/`; schemas de formulário em `schemas/`.
 - Funções puras ficam em `utils/`.
 - Configuração global fica em `app.config.ts` e `nuxt.config.ts`.
+- Testes ficam em `test/`, na raiz do projeto, fora de `app/`; veja `references/testing.md`.
 
 ## Estrutura base
 
@@ -55,20 +56,29 @@ app/
 ├── app.config.ts
 ├── app.vue
 └── error.vue
+test/
+├── unit/
+│   ├── schemas/
+│   └── utils/
+├── nuxt/
+│   ├── components/
+│   └── composables/
+└── e2e/
+    └── fixtures/
 ```
 
 ## Sufixos
 
-| Pasta | Arquivo | Exemplo |
-|---|---|---|
-| `components/` | `PascalCase.vue` | `OrderFormModal.vue` |
-| `composables/` | `use*.ts` | `useOrders.ts` |
-| `middleware/` | `kebab-case.ts` | `auth.ts` |
-| `plugins/` | `kebab-case.ts` | `api.ts` |
-| `schemas/` | `*.validation.ts` | `order.validation.ts` |
-| `types/` | `*.types.ts` | `order.types.ts` |
-| `utils/` | `*.util.ts` | `order.util.ts` |
-| `pages/` | `kebab-case.vue` | `orders/index.vue` |
+| Pasta          | Arquivo           | Exemplo               |
+| -------------- | ----------------- | --------------------- |
+| `components/`  | `PascalCase.vue`  | `OrderFormModal.vue`  |
+| `composables/` | `use*.ts`         | `useOrders.ts`        |
+| `middleware/`  | `kebab-case.ts`   | `auth.ts`             |
+| `plugins/`     | `kebab-case.ts`   | `api.ts`              |
+| `schemas/`     | `*.validation.ts` | `order.validation.ts` |
+| `types/`       | `*.types.ts`      | `order.types.ts`      |
+| `utils/`       | `*.util.ts`       | `order.util.ts`       |
+| `pages/`       | `kebab-case.vue`  | `orders/index.vue`    |
 
 ## Regras
 

@@ -1,6 +1,6 @@
 ---
 name: nestjs-backend
-description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar APIs NestJS. Cobre estrutura de pastas, nomenclatura, configuração por ambiente, autenticação, autorização, DTOs, validação, integridade referencial, sanitização, respostas padronizadas, paginação, filtros, ordenação, UUIDs, rate limiting, CORS, health checks, graceful shutdown, migrations, seeds, busca normalizada, formatação, lint, Docker e Better Auth. Use para rota, endpoint, controller, service, DTO, guard, schema Prisma, migration, seed, busca, env ou health check de backend.
+description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar APIs NestJS. Cobre estrutura de pastas, nomenclatura, configuração por ambiente, autenticação, autorização, DTOs, validação, integridade referencial, sanitização, respostas padronizadas, paginação, filtros, ordenação, UUIDs, rate limiting, CORS, health checks, graceful shutdown, migrations, seeds, busca normalizada, formatação, lint, testes unitários e E2E, Docker e Better Auth. Use para rota, endpoint, controller, service, DTO, guard, schema Prisma, migration, seed, busca, teste, env ou health check de backend.
 ---
 
 # Padrões NestJS + Prisma
@@ -36,7 +36,8 @@ description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou re
 - Health check usa `@nestjs/terminus`, com `liveness` e `readiness`; todo serviço de que a API depende tem indicador no readiness.
 - Toda mudança de schema passa por migration versionada.
 - O código deve ser explicativo por si só: nomes claros e funções pequenas; não escreva comentários.
-- Antes de concluir, `npm run format`, `npm run lint` e `npm run typecheck` devem passar sem erro ou warning; veja `references/formatting-linting.md`.
+- Todo service e validator novo ou alterado tem spec unitário (Vitest); todo controller novo ou alterado tem spec E2E com Postgres real; veja `references/testing.md`.
+- Antes de concluir, `npm run format`, `npm run lint`, `npm run typecheck` e `npm run test` devem passar sem erro ou warning; rode também `npm run test:e2e` quando a mudança tocar controller, DTO, schema Prisma, migration ou autenticação; veja `references/formatting-linting.md` e `references/testing.md`.
 - Use `camelCase` para variáveis, funções e propriedades.
 - Use `PascalCase` para classes, interfaces, types e enums.
 - Use `kebab-case` para arquivos e pastas.
@@ -61,6 +62,7 @@ Leia apenas a referência necessária para a tarefa:
 - Seeds (`prisma/seeds/`, `prisma db seed`, dados iniciais): `references/seeds.md`
 - Busca sem acento e sem diferença de maiúsculas (`normalizedName`, `normalizeText`): `references/search.md`
 - Formatação, lint e typecheck (Prettier, oxlint, portão de qualidade): `references/formatting-linting.md`
+- Testes (Vitest, specs unitários, E2E, Testcontainers, factories): `references/testing.md`
 - Docker, Dockerfile, docker-compose e deploy: `references/docker-deployment.md`
 - Health checks, Terminus e readiness de dependências: `references/health-checks.md`
 
@@ -84,6 +86,10 @@ Ao criar um módulo novo, use os templates em `templates/` e adapte-os ao domín
 | `select.constant.ts.tpl`            | `constants/<entity-name>-select.constant.ts`            |
 | `searchable-fields.constant.ts.tpl` | `constants/<entity-name>-searchable-fields.constant.ts` |
 | `sortable-fields.constant.ts.tpl`   | `constants/<entity-name>-sortable-fields.constant.ts`   |
+| `create-service.spec.ts.tpl`        | `services/create-<entity-name>.service.spec.ts`         |
+| `exists-validator.spec.ts.tpl`      | `validators/<entity-name>-exists.validator.spec.ts`     |
+| `e2e-spec.ts.tpl`                   | `test/e2e/<entity-names>.e2e-spec.ts`                   |
+| `factory.ts.tpl`                    | `test/factories/<entity-name>.factory.ts`               |
 
 Substitua os placeholders (exemplo para a entidade `Order`):
 
@@ -100,5 +106,7 @@ Substitua os placeholders (exemplo para a entidade `Order`):
 - O plural é usado no module, no controller, na rota, no service de listagem e no DTO de listagem; o singular, no restante.
 
 O `list-service.ts.tpl` não normaliza a busca. Quando a entidade exigir busca normalizada (sem acento e sem diferença de maiúsculas), siga `references/search.md`: coluna `normalized*`, `normalizeText()` no service e `SEARCHABLE_FIELDS` apontando para ela.
+
+Os demais services (`get`, `list`, `update`, `delete`) seguem o mesmo formato do `create-service.spec.ts.tpl`; escreva um spec para cada um, adaptando os casos.
 
 Não crie arquivos ou métodos vazios. Remova o que não for necessário.

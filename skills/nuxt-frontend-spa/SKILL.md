@@ -1,6 +1,6 @@
 ---
 name: nuxt-frontend-spa
-description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar aplicações Nuxt SPA (ssr false, sem backend próprio) com Nuxt UI. Cobre estrutura de pastas, sufixos de arquivo, nomenclatura, componentes, composables, páginas, layouts, middleware de rota, types da API, schemas Zod, formulários, cliente HTTP $api e contrato com o backend, data fetching, config e variáveis de ambiente, toasts e feedback ao usuário, estados de UI, acessibilidade, responsividade, imagens, temas, dark mode e páginas de erro, formatação e lint. Use SEMPRE que a tarefa envolver página, componente, composable, formulário, middleware, schema, type, chamada à API, toast, variável de ambiente ou estilo no frontend.
+description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou revisar aplicações Nuxt SPA (ssr false, sem backend próprio) com Nuxt UI. Cobre estrutura de pastas, sufixos de arquivo, nomenclatura, componentes, composables, páginas, layouts, middleware de rota, types da API, schemas Zod, formulários, cliente HTTP $api e contrato com o backend, data fetching, config e variáveis de ambiente, toasts e feedback ao usuário, estados de UI, acessibilidade, responsividade, imagens, temas, dark mode e páginas de erro, formatação, lint e testes (Vitest, @nuxt/test-utils e Playwright). Use SEMPRE que a tarefa envolver página, componente, composable, formulário, middleware, schema, type, chamada à API, toast, teste, variável de ambiente ou estilo no frontend.
 ---
 
 # Padrões Nuxt SPA + Nuxt UI
@@ -17,6 +17,7 @@ Estas regras se aplicam a qualquer tela, componente ou fluxo Nuxt novo ou altera
 - Tailwind CSS via Nuxt UI para estilização.
 - Dark mode suportado por padrão.
 - Gerenciador de pacotes: `npm`.
+- Testes: Vitest com `@nuxt/test-utils` (unit e componentes) e Playwright (E2E).
 - Formatação segue o Prettier do projeto; o padrão é sem ponto e vírgula, aspas simples e sem trailing comma.
 
 ## Arquitetura
@@ -75,7 +76,8 @@ Estas regras se aplicam a qualquer tela, componente ou fluxo Nuxt novo ou altera
 - Trate sempre loading, empty, error e success.
 - Toda ação tem feedback visível (loading, toast de sucesso e toast de erro); nenhuma falha é silenciosa.
 - Toda mutação passa por `useApiAction`, sem exceção; erros por campo vêm de `validationErrors`.
-- Antes de concluir, `npm run format`, `npm run lint` e `npm run typecheck` devem passar sem erro ou warning; veja `references/formatting-linting.md`.
+- Todo schema, util, composable e formulário novo ou alterado tem spec; toda página ou fluxo crítico novo ou alterado tem teste E2E; veja `references/testing.md`.
+- Antes de concluir, `npm run format`, `npm run lint`, `npm run typecheck` e `npm run test` devem passar sem erro ou warning; rode também `npm run test:e2e` quando a mudança tocar página, layout, middleware ou fluxo de autenticação; veja `references/formatting-linting.md` e `references/testing.md`.
 - Textos exibidos ao usuário em português; código, nomes e comentários em inglês.
 - Nunca acesse `process.env`; configuração vem de `runtimeConfig.public` com `NUXT_PUBLIC_*`.
 - `.env` e `.env.example`: variáveis do app primeiro (`NODE_ENV`, `PORT`), depois grupos por prefixo, com linha em branco entre os grupos; veja `references/configuration.md`.
@@ -109,6 +111,7 @@ Leia apenas a referência necessária:
 - Tema, tokens e dark mode: `references/theming.md`
 - Páginas de erro: `references/error-pages.md`
 - Formatação, lint e typecheck (Prettier, ESLint, portão de qualidade): `references/formatting-linting.md`
+- Testes (Vitest, `@nuxt/test-utils`, `registerEndpoint`, Playwright, fixtures): `references/testing.md`
 
 ## Não fazer (SPA)
 
@@ -124,34 +127,39 @@ Leia apenas a referência necessária:
 
 Ao criar telas, composables, formulários e contratos, use os templates em `templates/` e adapte-os ao domínio. Cada template vira um arquivo na pasta indicada:
 
-| Template | Destino |
-|---|---|
-| `api.plugin.ts.tpl` | `plugins/api.ts` |
-| `api.types.ts.tpl` | `types/api.types.ts` |
-| `api-error.util.ts.tpl` | `utils/api-error.util.ts` |
-| `use-api-action.ts.tpl` | `composables/useApiAction.ts` |
-| `use-list-query.ts.tpl` | `composables/useListQuery.ts` |
-| `auth-client.plugin.ts.tpl` | `plugins/auth-client.ts` |
-| `use-auth.ts.tpl` | `composables/useAuth.ts` |
-| `auth-error.util.ts.tpl` | `utils/auth-error.util.ts` |
-| `middleware.ts.tpl` | `middleware/<name>.ts` |
-| `types.ts.tpl` | `types/<entity-name>.types.ts` |
-| `validation.ts.tpl` | `schemas/<entity-name>.validation.ts` |
-| `composable.ts.tpl` | `composables/use<EntityNames>.ts` |
-| `form.vue.tpl` | `components/<entity-name>/<EntityName>FormPanel.vue` |
-| `component.vue.tpl` | `components/<entity-name>/<Component>.vue` |
-| `page.vue.tpl` | `pages/<entity-names>/index.vue` |
+| Template                    | Destino                                              |
+| --------------------------- | ---------------------------------------------------- |
+| `api.plugin.ts.tpl`         | `plugins/api.ts`                                     |
+| `api.types.ts.tpl`          | `types/api.types.ts`                                 |
+| `api-error.util.ts.tpl`     | `utils/api-error.util.ts`                            |
+| `use-api-action.ts.tpl`     | `composables/useApiAction.ts`                        |
+| `use-list-query.ts.tpl`     | `composables/useListQuery.ts`                        |
+| `auth-client.plugin.ts.tpl` | `plugins/auth-client.ts`                             |
+| `use-auth.ts.tpl`           | `composables/useAuth.ts`                             |
+| `auth-error.util.ts.tpl`    | `utils/auth-error.util.ts`                           |
+| `middleware.ts.tpl`         | `middleware/<name>.ts`                               |
+| `types.ts.tpl`              | `types/<entity-name>.types.ts`                       |
+| `validation.ts.tpl`         | `schemas/<entity-name>.validation.ts`                |
+| `composable.ts.tpl`         | `composables/use<EntityNames>.ts`                    |
+| `form.vue.tpl`              | `components/<entity-name>/<EntityName>FormPanel.vue` |
+| `component.vue.tpl`         | `components/<entity-name>/<Component>.vue`           |
+| `page.vue.tpl`              | `pages/<entity-names>/index.vue`                     |
+| `validation.spec.ts.tpl`    | `test/unit/schemas/<entity-name>.validation.spec.ts` |
+| `composable.spec.ts.tpl`    | `test/nuxt/composables/use<EntityNames>.spec.ts`     |
+| `form.spec.ts.tpl`          | `test/nuxt/components/<EntityName>FormPanel.spec.ts` |
+| `e2e.spec.ts.tpl`           | `test/e2e/<entity-names>.spec.ts`                    |
+| `e2e-fixture.json.tpl`      | `test/e2e/fixtures/<entity-names>.json`              |
 
 Os oito primeiros são a infraestrutura compartilhada; crie-os uma vez, se o projeto ainda não os tiver.
 
 Substitua os placeholders (exemplo para a entidade `Order`):
 
-| Placeholder | Formato | Exemplo |
-|---|---|---|
-| `{{EntityName}}` | PascalCase, singular | `Order` |
-| `{{entityName}}` | camelCase, singular | `order` |
-| `{{entity-name}}` | kebab-case, singular | `order` |
-| `{{EntityNames}}` | PascalCase, plural | `Orders` |
+| Placeholder        | Formato                                     | Exemplo  |
+| ------------------ | ------------------------------------------- | -------- |
+| `{{EntityName}}`   | PascalCase, singular                        | `Order`  |
+| `{{entityName}}`   | camelCase, singular                         | `order`  |
+| `{{entity-name}}`  | kebab-case, singular                        | `order`  |
+| `{{EntityNames}}`  | PascalCase, plural                          | `Orders` |
 | `{{entity-names}}` | kebab-case, plural (também é a rota da API) | `orders` |
 
 Não crie arquivos ou métodos vazios. Remova o que não for necessário.

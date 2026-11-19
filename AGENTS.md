@@ -25,12 +25,13 @@
 
 ## Portão de Qualidade
 
-Uma tarefa nunca é concluída enquanto houver erro de formatação, linter ou tipos.
+Uma tarefa nunca é concluída enquanto houver erro de formatação, linter ou tipos, ou teste falhando.
 
 Antes de dar a tarefa como finalizada:
 
 1. Execute o comando de formatação.
 2. Execute o comando de linter.
 3. Execute o comando de typecheck.
+4. Execute o comando de testes.
 
-Corrija qualquer erro ou warning antes de encerrar; não altere a configuração de lint ou TypeScript só para a validação passar. Os comandos estão na seção Comandos.
+Corrija qualquer erro, warning ou teste falhando antes de encerrar; não altere a configuração de lint ou TypeScript só para a validação passar. Os comandos estão na seção Comandos.
