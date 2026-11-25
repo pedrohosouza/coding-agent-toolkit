@@ -14,6 +14,7 @@ remove=(
   commit-conventions
   nestjs-backend
   nuxt-frontend-spa
+  nuxt-fullstack
   ui-ux
 )
 
@@ -45,10 +46,11 @@ for args in "${install[@]}"; do
 done
 
 echo "== Plugins =="
+codex plugin marketplace remove context7-marketplace >/dev/null 2>&1 || true
 plugin_cmds=(
   "codex plugin marketplace add upstash/context7"
   "codex plugin add context7@context7-marketplace"
-  "claude plugin install context7@claude-plugins-official"
+  "claude plugin install context7@anthropic-plugin-directory"
 )
 for cmd in "${plugin_cmds[@]}"; do
   echo ">> $cmd"
