@@ -10,8 +10,8 @@ export class Get{{EntityName}}Service {
     private readonly {{entityName}}ExistsValidator: {{EntityName}}ExistsValidator,
   ) {}
 
-  async execute(id: string) {
-    await this.{{entityName}}ExistsValidator.execute(id);
+  async execute(userId: string, id: string) {
+    await this.{{entityName}}ExistsValidator.execute(userId, id);
 
     return this.prismaService.{{entityName}}.findUniqueOrThrow({
       where: { id },

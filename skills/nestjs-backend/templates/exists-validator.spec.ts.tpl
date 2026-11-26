@@ -6,6 +6,7 @@ import { PrismaService } from '../../../common/modules/prisma/services/prisma.se
 import { {{EntityName}}ExistsValidator } from './{{entity-name}}-exists.validator.js';
 
 describe('{{EntityName}}ExistsValidator', () => {
+  const userId = '0197e1c2-6f4a-7b3d-9a10-2c5f8e1d4b11';
   const id = '0197e1c2-6f4a-7b3d-9a10-2c5f8e1d4b77';
   const prismaService = mockDeep<PrismaService>();
   let validator: {{EntityName}}ExistsValidator;
@@ -22,15 +23,18 @@ describe('{{EntityName}}ExistsValidator', () => {
   });
 
   it('returns the id when the {{entityName}} exists', async () => {
-    prismaService.{{entityName}}.findUnique.mockResolvedValue({ id } as never);
+    prismaService.{{entityName}}.findFirst.mockResolvedValue({ id } as never);
 
-    await expect(validator.execute(id)).resolves.toEqual({ id });
+    await expect(validator.execute(userId, id)).resolves.toEqual({ id });
+    expect(prismaService.{{entityName}}.findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id, userId } }),
+    );
   });
 
-  it('throws NotFoundException when the {{entityName}} does not exist', async () => {
-    prismaService.{{entityName}}.findUnique.mockResolvedValue(null);
+  it('throws NotFoundException when the {{entityName}} does not exist or belongs to another user', async () => {
+    prismaService.{{entityName}}.findFirst.mockResolvedValue(null);
 
-    await expect(validator.execute(id)).rejects.toBeInstanceOf(
+    await expect(validator.execute(userId, id)).rejects.toBeInstanceOf(
       NotFoundException,
     );
   });

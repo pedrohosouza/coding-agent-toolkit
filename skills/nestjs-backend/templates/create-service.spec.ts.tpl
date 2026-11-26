@@ -5,6 +5,7 @@ import { PrismaService } from '../../../common/modules/prisma/services/prisma.se
 import { Create{{EntityName}}Service } from './create-{{entity-name}}.service.js';
 
 describe('Create{{EntityName}}Service', () => {
+  const userId = '0197e1c2-6f4a-7b3d-9a10-2c5f8e1d4b11';
   const prismaService = mockDeep<PrismaService>();
   let service: Create{{EntityName}}Service;
 
@@ -19,7 +20,7 @@ describe('Create{{EntityName}}Service', () => {
     service = moduleRef.get(Create{{EntityName}}Service);
   });
 
-  it('creates the {{entityName}} with the given name', async () => {
+  it('creates the {{entityName}} with the given name for the user', async () => {
     const created = {
       id: '0197e1c2-6f4a-7b3d-9a10-2c5f8e1d4b77',
       createdAt: new Date(),
@@ -27,11 +28,11 @@ describe('Create{{EntityName}}Service', () => {
     };
     prismaService.{{entityName}}.create.mockResolvedValue(created as never);
 
-    const result = await service.execute({ name: 'Example' });
+    const result = await service.execute(userId, { name: 'Example' });
 
     expect(result).toEqual(created);
     expect(prismaService.{{entityName}}.create).toHaveBeenCalledWith(
-      expect.objectContaining({ data: { name: 'Example' } }),
+      expect.objectContaining({ data: { name: 'Example', userId } }),
     );
   });
 });

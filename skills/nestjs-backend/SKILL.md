@@ -24,7 +24,7 @@ description: Aplica os padrões obrigatórios do projeto ao criar, alterar ou re
 - Toda variável de ambiente é validada no boot pela camada de configuração.
 - `.env` e `.env.example`: variáveis do app primeiro (`NODE_ENV`, `PORT`), depois grupos por prefixo, com linha em branco entre os grupos; veja `references/configuration.md`.
 - Toda rota é autenticada por padrão; rotas públicas usam `@AllowAnonymous()`.
-- Autorização é verificada por recurso, prevenindo IDOR/BOLA.
+- Autorização é verificada por recurso, prevenindo IDOR/BOLA: controllers obtêm o usuário com `@Session()`, services e validators recebem `userId` e toda query de leitura, alteração ou remoção filtra pelo dono (`where: { id, userId }`); nunca aceite `userId` do body.
 - Valide toda entrada externa: body, query, params e headers.
 - Use respostas consistentes para recurso específico, lista paginada e erro.
 - Nunca retorne `200` para erro.
@@ -102,7 +102,8 @@ Substitua os placeholders (exemplo para a entidade `Order`):
 | `{{EntityNames}}`  | PascalCase, plural                                                  | `Orders` |
 | `{{entity-names}}` | kebab-case, plural                                                  | `orders` |
 
-- O model Prisma deve se chamar `{{EntityName}}`, para que `prisma.{{entityName}}` exista.
+- O model Prisma deve se chamar `{{EntityName}}`, para que `prisma.{{entityName}}` exista, e ter `userId` (`@db.Uuid`) com relação para `User`. Se o recurso pertencer a uma organização, troque o filtro por `organizationId` da sessão.
+- O decorator `@Session()` e o type `UserSession` vêm da integração NestJS do Better Auth usada no projeto; ajuste o import se o pacote for outro.
 - O plural é usado no module, no controller, na rota, no service de listagem e no DTO de listagem; o singular, no restante.
 
 O `list-service.ts.tpl` não normaliza a busca. Quando a entidade exigir busca normalizada (sem acento e sem diferença de maiúsculas), siga `references/search.md`: coluna `normalized*`, `normalizeText()` no service e `SEARCHABLE_FIELDS` apontando para ela.

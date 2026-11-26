@@ -11,6 +11,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { Session, type UserSession } from '@thallesp/nestjs-better-auth';
 import { Create{{EntityName}}Dto } from '../dtos/create-{{entity-name}}.dto.js';
 import { List{{EntityNames}}QueryDto } from '../dtos/list-{{entity-names}}-query.dto.js';
 import { Update{{EntityName}}Dto } from '../dtos/update-{{entity-name}}.dto.js';
@@ -31,31 +32,44 @@ export class {{EntityNames}}Controller {
   ) {}
 
   @Get()
-  async list(@Query() query: List{{EntityNames}}QueryDto) {
-    return this.list{{EntityNames}}Service.execute(query);
+  async list(
+    @Session() session: UserSession,
+    @Query() query: List{{EntityNames}}QueryDto,
+  ) {
+    return this.list{{EntityNames}}Service.execute(session.user.id, query);
   }
 
   @Get(':id')
-  async get(@Param('id', ParseUUIDPipe) id: string) {
-    return this.get{{EntityName}}Service.execute(id);
+  async get(
+    @Session() session: UserSession,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return this.get{{EntityName}}Service.execute(session.user.id, id);
   }
 
   @Post()
-  async create(@Body() dto: Create{{EntityName}}Dto) {
-    return this.create{{EntityName}}Service.execute(dto);
+  async create(
+    @Session() session: UserSession,
+    @Body() dto: Create{{EntityName}}Dto,
+  ) {
+    return this.create{{EntityName}}Service.execute(session.user.id, dto);
   }
 
   @Patch(':id')
   async update(
+    @Session() session: UserSession,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: Update{{EntityName}}Dto,
   ) {
-    return this.update{{EntityName}}Service.execute(id, dto);
+    return this.update{{EntityName}}Service.execute(session.user.id, id, dto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
-    await this.delete{{EntityName}}Service.execute(id);
+  async delete(
+    @Session() session: UserSession,
+    @Param('id', ParseUUIDPipe) id: string,
+  ): Promise<void> {
+    await this.delete{{EntityName}}Service.execute(session.user.id, id);
   }
 }

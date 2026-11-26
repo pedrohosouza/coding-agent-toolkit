@@ -5,9 +5,9 @@ import { PrismaService } from '../../../common/modules/prisma/services/prisma.se
 export class {{EntityName}}ExistsValidator {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(id: string) {
-    const {{entityName}} = await this.prismaService.{{entityName}}.findUnique({
-      where: { id },
+  async execute(userId: string, id: string) {
+    const {{entityName}} = await this.prismaService.{{entityName}}.findFirst({
+      where: { id, userId },
       select: { id: true },
     });
 

@@ -34,9 +34,11 @@ describe('{{EntityNames}} (e2e)', () => {
 
   describe('GET /{{entity-names}}', () => {
     it('lists {{entity-names}} with pagination', async () => {
-      const { agent } = await createAuthenticatedAgent(app);
-      await create{{EntityName}}(app);
-      await create{{EntityName}}(app);
+      const { agent, userId } = await createAuthenticatedAgent(app);
+      const other = await createAuthenticatedAgent(app);
+      await create{{EntityName}}(app, userId);
+      await create{{EntityName}}(app, userId);
+      await create{{EntityName}}(app, other.userId);
 
       const response = await agent.get('/api/{{entity-names}}').expect(200);
 
@@ -50,8 +52,8 @@ describe('{{EntityNames}} (e2e)', () => {
 
   describe('GET /{{entity-names}}/:id', () => {
     it('returns the {{entityName}}', async () => {
-      const { agent } = await createAuthenticatedAgent(app);
-      const {{entityName}} = await create{{EntityName}}(app);
+      const { agent, userId } = await createAuthenticatedAgent(app);
+      const {{entityName}} = await create{{EntityName}}(app, userId);
 
       const response = await agent
         .get(`/api/{{entity-names}}/${{{entityName}}.id}`)
@@ -74,6 +76,14 @@ describe('{{EntityNames}} (e2e)', () => {
         .expect(404);
 
       expect(response.body.error.code).toBe('NOT_FOUND');
+    });
+
+    it('responds 404 when the {{entityName}} belongs to another user', async () => {
+      const { agent } = await createAuthenticatedAgent(app);
+      const owner = await createAuthenticatedAgent(app);
+      const {{entityName}} = await create{{EntityName}}(app, owner.userId);
+
+      await agent.get(`/api/{{entity-names}}/${{{entityName}}.id}`).expect(404);
     });
   });
 
@@ -106,8 +116,8 @@ describe('{{EntityNames}} (e2e)', () => {
 
   describe('PATCH /{{entity-names}}/:id', () => {
     it('updates the {{entityName}}', async () => {
-      const { agent } = await createAuthenticatedAgent(app);
-      const {{entityName}} = await create{{EntityName}}(app);
+      const { agent, userId } = await createAuthenticatedAgent(app);
+      const {{entityName}} = await create{{EntityName}}(app, userId);
 
       await agent
         .patch(`/api/{{entity-names}}/${{{entityName}}.id}`)
@@ -125,10 +135,25 @@ describe('{{EntityNames}} (e2e)', () => {
     });
   });
 
+  describe('ownership', () => {
+    it('does not update or delete a {{entityName}} of another user', async () => {
+      const { agent } = await createAuthenticatedAgent(app);
+      const owner = await createAuthenticatedAgent(app);
+      const {{entityName}} = await create{{EntityName}}(app, owner.userId);
+
+      await agent
+        .patch(`/api/{{entity-names}}/${{{entityName}}.id}`)
+        .send({ name: 'Renamed' })
+        .expect(404);
+      await agent.delete(`/api/{{entity-names}}/${{{entityName}}.id}`).expect(404);
+      await owner.agent.get(`/api/{{entity-names}}/${{{entityName}}.id}`).expect(200);
+    });
+  });
+
   describe('DELETE /{{entity-names}}/:id', () => {
     it('deletes the {{entityName}}', async () => {
-      const { agent } = await createAuthenticatedAgent(app);
-      const {{entityName}} = await create{{EntityName}}(app);
+      const { agent, userId } = await createAuthenticatedAgent(app);
+      const {{entityName}} = await create{{EntityName}}(app, userId);
 
       await agent.delete(`/api/{{entity-names}}/${{{entityName}}.id}`).expect(204);
       await agent.get(`/api/{{entity-names}}/${{{entityName}}.id}`).expect(404);

@@ -7,9 +7,9 @@ import type { Create{{EntityName}}Dto } from '../dtos/create-{{entity-name}}.dto
 export class Create{{EntityName}}Service {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(dto: Create{{EntityName}}Dto) {
+  async execute(userId: string, dto: Create{{EntityName}}Dto) {
     return this.prismaService.{{entityName}}.create({
-      data: { name: dto.name },
+      data: { name: dto.name, userId },
       select: {{ENTITY_NAME}}_SELECT,
     });
   }

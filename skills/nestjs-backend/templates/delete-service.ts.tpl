@@ -9,8 +9,8 @@ export class Delete{{EntityName}}Service {
     private readonly {{entityName}}ExistsValidator: {{EntityName}}ExistsValidator,
   ) {}
 
-  async execute(id: string): Promise<void> {
-    await this.{{entityName}}ExistsValidator.execute(id);
+  async execute(userId: string, id: string): Promise<void> {
+    await this.{{entityName}}ExistsValidator.execute(userId, id);
 
     await this.prismaService.{{entityName}}.delete({ where: { id } });
   }

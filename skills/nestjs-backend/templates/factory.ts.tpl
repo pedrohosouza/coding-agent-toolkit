@@ -7,9 +7,13 @@ interface {{EntityName}}Overrides {
 
 export function create{{EntityName}}(
   app: INestApplication,
+  userId: string,
   overrides: {{EntityName}}Overrides = {},
 ) {
   return app.get(PrismaService).{{entityName}}.create({
-    data: { name: overrides.name ?? `{{EntityName}} ${crypto.randomUUID()}` },
+    data: {
+      name: overrides.name ?? `{{EntityName}} ${crypto.randomUUID()}`,
+      userId,
+    },
   });
 }

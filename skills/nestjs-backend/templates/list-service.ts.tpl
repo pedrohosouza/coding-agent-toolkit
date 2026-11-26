@@ -8,11 +8,12 @@ import type { List{{EntityNames}}QueryDto } from '../dtos/list-{{entity-names}}-
 export class List{{EntityNames}}Service {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async execute(query: List{{EntityNames}}QueryDto) {
+  async execute(userId: string, query: List{{EntityNames}}QueryDto) {
     const { page, perPage, search, sort, order } = query;
 
     return this.prismaService.{{entityName}}.paginate(
       {
+        where: { userId },
         orderBy: { [sort]: order },
         select: {{ENTITY_NAME}}_SELECT,
       },
