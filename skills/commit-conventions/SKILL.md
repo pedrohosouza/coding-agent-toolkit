@@ -28,12 +28,24 @@ Tipos permitidos:
 - `build`: build ou dependências
 - `ci`: integração e entrega contínuas
 
+## Exemplos
+
+```text
+feat(orders): add order cancellation endpoint
+fix(auth): reject expired session tokens
+style: apply prettier to order module
+chore: update node version in nvmrc
+build: upgrade prisma to v6
+```
+
+- `style` muda apenas formatação, sem efeito em lógica; `chore` é manutenção que não é código de produção, teste, build nem CI.
+
 ## Mensagem
 
 - Escreva em inglês, no imperativo, com descrição minúscula e sem ponto final.
 - Mantenha a primeira linha em aproximadamente 72 caracteres.
 - Use escopo somente quando representar módulo ou área real.
-- Use corpo para explicar contexto e motivo, não para repetir o diff.
+- Use corpo para explicar contexto e motivo, não para repetir o diff; inclua-o em `fix`, breaking changes e mudanças cujo motivo não é óbvio pela descrição.
 - Marque breaking changes com `!` e/ou `BREAKING CHANGE:`.
 - Referencie issues no rodapé quando aplicável.
 

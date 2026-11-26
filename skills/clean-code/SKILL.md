@@ -1,11 +1,11 @@
 ---
 name: clean-code
-description: Aplica regras de clareza, simplicidade e manutenção ao escrever, refatorar ou revisar código.
+description: Aplica regras de clareza, simplicidade e manutenção (sem else, sem comentários, funções pequenas, nomes que revelam intenção, sem números mágicos) ao escrever, refatorar ou revisar código. Use em toda criação ou alteração de código e em code review.
 ---
 
 # Clean Code
 
-Use estas regras em toda alteração de código.
+Use estas regras em todo código novo ou alterado. Código existente fora do trecho tocado não é reescrito apenas para cumprir estas regras; refatoração ampla exige pedido explícito. Quando o projeto tiver convenção explícita diferente (lint, guia de estilo, instruções locais), siga o projeto.
 
 ## Regras centrais
 
@@ -19,7 +19,7 @@ Use estas regras em toda alteração de código.
 
 ## Controle de fluxo
 
-- **Nunca use `else` ou `else if`.** Use guard clauses, early returns, extração
+- **Nunca use `else` ou `else if`** em código escrito ou alterado. Use guard clauses, early returns, extração
   de funções, despacho ou polimorfismo.
 - Não substitua `else` por ternários ou estruturas mais difíceis de entender
   apenas para contornar a regra.
@@ -44,11 +44,13 @@ Use estas regras em toda alteração de código.
 
 ## Código autoexplicativo
 
-- **Nunca escreva comentários no código.** Expresse intenção com nomes, tipos,
+- **Nunca escreva comentários no código**, inclusive TODO, FIXME e explicações de porquê. Expresse intenção com nomes, tipos,
   constantes, funções pequenas e estrutura clara.
 - Se uma parte exigir explicação, refatore até o próprio código comunicar o
   comportamento.
 - Nunca deixe código comentado.
+- Ao tocar um trecho com comentários existentes, remova-os somente se o próprio código, após a alteração, já expressar o que eles diziam.
+- Diretivas que não são comentários explicativos e são exigidas por ferramentas (shebang, pragmas, tipos JSDoc em projeto JavaScript sem TypeScript) seguem a configuração do projeto.
 
 ## Revisão
 
