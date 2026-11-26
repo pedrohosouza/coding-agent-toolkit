@@ -15,7 +15,10 @@ remove=(
   nestjs-backend
   nuxt-frontend-spa
   nuxt-fullstack
+  saas-compliance-br
+  et-planning
   ui-ux
+  logo-design
 )
 
 install=(
@@ -29,6 +32,7 @@ install=(
   "https://github.com/leonxlnx/taste-skill --skill design-taste-frontend"
   "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max"
   "https://github.com/pbakaus/impeccable --skill impeccable"
+  "https://github.com/kaankiziltug/logo-design-skill --skill logo-design"
 )
 
 echo "== Reset =="
