@@ -1,28 +1,20 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-remove=(
-  grilling
-  caveman
-  playwright-cli
-  humanizer
-  security-audit
-  design-taste-frontend
-  ui-ux-pro-max
-  impeccable
-  clean-code
-  commit-conventions
-  nestjs-backend
-  nuxt-frontend-spa
-  nuxt-fullstack
-  saas-compliance-br
-  et-planning
-  ui-ux
-  logo-design
-)
+if ! command -v node >/dev/null || ! command -v npx >/dev/null; then
+  echo "Node.js e npx precisam estar disponíveis no PATH." >&2
+  exit 1
+fi
+
+repo_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P) || exit 1
+failed=()
+
+install_skills() {
+  printf '>> Instalar %s\n' "$*"
+  npx --yes skills add "$@" --global --yes || failed+=("$*")
+}
 
 install=(
-  "pedrohosouza/coding-agent-toolkit"
   "https://github.com/mattpocock/skills --skill grilling"
   "https://github.com/juliusbrussee/caveman --skill caveman"
   "https://github.com/microsoft/playwright-cli --skill playwright-cli"
@@ -35,34 +27,31 @@ install=(
   "https://github.com/kaankiziltug/logo-design-skill --skill logo-design"
 )
 
-echo "== Reset =="
-for skill in "${remove[@]}"; do
-  echo ">> remove $skill"
-  npx skills remove "$skill" --global --yes >/dev/null 2>&1 || true
-done
-
-echo "== Setup =="
-failed=()
+echo "== Skills =="
+install_skills "$repo_dir/skills"
 for args in "${install[@]}"; do
-  echo ">> add $args"
   read -r -a parts <<<"$args"
-  npx skills add "${parts[@]}" --global --yes || failed+=("$args")
+  install_skills "${parts[@]}"
 done
 
 echo "== Plugins =="
-codex plugin marketplace remove context7-marketplace >/dev/null 2>&1 || true
-plugin_cmds=(
-  "codex plugin marketplace add upstash/context7"
-  "codex plugin add context7@context7-marketplace"
-  "claude plugin install context7@anthropic-plugin-directory"
-)
-for cmd in "${plugin_cmds[@]}"; do
-  echo ">> $cmd"
-  $cmd || failed+=("$cmd")
-done
+if command -v codex >/dev/null; then
+  echo ">> Configurar Context7 no Codex"
+  codex plugin marketplace remove context7-marketplace >/dev/null 2>&1 || true
+  if codex plugin marketplace add upstash/context7; then
+    codex plugin add context7@context7-marketplace || failed+=("Context7 no Codex")
+  else
+    failed+=("Marketplace do Context7 no Codex")
+  fi
+fi
+
+if command -v claude >/dev/null; then
+  echo ">> Configurar Context7 no Claude Code"
+  claude plugin install context7@claude-plugins-official || failed+=("Context7 no Claude Code")
+fi
 
 if ((${#failed[@]})); then
-  echo "Failed:" >&2
+  echo "Falhas na instalação" >&2
   printf '  %s\n' "${failed[@]}" >&2
   exit 1
 fi

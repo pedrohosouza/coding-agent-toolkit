@@ -3,5 +3,18 @@
   "permissions": {
     "defaultMode": "plan"
   },
-  "model": "opusplan"
+  "model": "claude-opus-5-5",
+  "effortLevel": "low",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Use the caveman skill (invoke the Skill tool with skill: caveman) at the start of this session and keep caveman mode active for the entire session.'"
+          }
+        ]
+      }
+    ]
+  }
 }
