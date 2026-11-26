@@ -1,6 +1,6 @@
 ---
 name: ui-ux
-description: Aplica 25 princípios de UX, psicologia cognitiva, percepção visual e usabilidade ao criar, revisar ou refatorar interfaces, telas, componentes, fluxos e jornadas. Cobre Lei de Hick, Fitts, Jakob, Miller, Doherty, Tesler, Postel, Parkinson, Navalha de Occam, Pareto, princípios da Gestalt, Proximidade, Semelhança, Continuidade, Fechamento, Região Comum, Conectividade Uniforme, Pragnanz, von Restorff, Posição Serial, Zeigarnik, Pico-Fim, Carga Cognitiva, Goal-Gradient, estética-usabilidade e Modelo Mental. Use ao definir hierarquia, navegação, formulários, listas, onboarding, feedback, acessibilidade, estados de UI ou decisões de interface.
+description: Aplica 25 princípios de UX, psicologia cognitiva, percepção visual e usabilidade ao criar, revisar ou refatorar interfaces, telas, componentes, fluxos e jornadas. Cobre Lei de Hick, Fitts, Jakob, Miller, Doherty, Tesler, Postel, Parkinson, Navalha de Occam, Pareto, princípios da Gestalt, Proximidade, Semelhança, Continuidade, Fechamento, Região Comum, Conectividade Uniforme, Pragnanz, von Restorff, Posição Serial, Zeigarnik, Pico-Fim, Carga Cognitiva, Goal-Gradient, estética-usabilidade e Modelo Mental. Use ao criar ou revisar telas, componentes e fluxos; ao definir hierarquia, navegação, formulários, listas, onboarding, feedback, acessibilidade ou estados de UI; ou quando a interface estiver confusa, poluída, difícil de usar ou com baixa conversão.
 ---
 
 # UI/UX Standards
